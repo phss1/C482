@@ -9,26 +9,54 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  *
  * @author Pete.Heiss
  */
 public class ModifyPartController implements Initializable {
-    
     @FXML
-    private Label label;
-    
+    private Button CloseButton;
+
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
+    private Button SaveButton;
+
+    @FXML
+    private TextField modifyPartId;
+
+    @FXML
+    private TextField modifyPartName;
+
+    @FXML
+    private TextField modifyPartInv;
+
+    @FXML
+    private TextField modifyPartMax;
+
+    @FXML
+    private TextField modifyPartPriceCost;
+
+    @FXML
+    private TextField modifyPartMin;
+
+    @FXML
+    private TextField modifyPartMachineId;
+
+    @FXML
+    void onActionAddPartInHouse(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionAddPartOutsourced(ActionEvent event) {
+
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
 }
