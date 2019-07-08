@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Controller;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;

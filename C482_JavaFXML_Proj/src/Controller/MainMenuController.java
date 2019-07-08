@@ -10,22 +10,23 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.application.Application;
 
 /**
  * FXML Controller class
  *
- * @author Pete.Heiss
+ * @author 39ds03d
  */
 public class MainMenuController implements Initializable {
 
@@ -76,7 +77,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private Button ProductDeleteButton;
     @FXML
-    private Button ExitProgramButton;
+    private Button Exit;
 
     /**
      * Initializes the controller class.
@@ -87,27 +88,25 @@ public class MainMenuController implements Initializable {
     }    
 
     @FXML
-    private void PartSearchButton(ActionEvent event)
-    {  
-        
+    private void PartSearchButton(ActionEvent event) {
     }
 
     @FXML
-    private void PartAddButton(ActionEvent event) throws IOException
+    private void PartAddButton(ActionEvent event) {
+    }
+
+    @FXML
+    private void PartModifyButton(ActionEvent event) throws IOException
     {
         Stage stage; 
         Parent root;       
         stage=(Stage) Exit.getScene().getWindow();
         //load up OTHER FXML document
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("AddPart.fxml"));
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("ModifyPart.fxml"));
         root =loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    @FXML
-    private void PartModifyButton(ActionEvent event) {
     }
 
     @FXML
@@ -119,11 +118,31 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    private void ProductAddButton(ActionEvent event) {
+    private void ProductAddButton(ActionEvent event) throws IOException
+    {
+        Stage stage; 
+        Parent root;       
+        stage=(Stage) Exit.getScene().getWindow();
+        //load up OTHER FXML document
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("AddProduct.fxml"));
+        root =loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
-    private void ProductModifyButton(ActionEvent event) {
+    private void ProductModifyButton(ActionEvent event) throws IOException
+    {
+        Stage stage; 
+        Parent root;       
+        stage=(Stage) Exit.getScene().getWindow();
+        //load up OTHER FXML document
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("ModifyProduct.fxml"));
+        root =loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -131,7 +150,9 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    private void ExitProgramButton(ActionEvent event) {
+    private void ExitProgramButton(ActionEvent event) throws IOException
+    {
+
     }
     
 }
