@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -14,24 +15,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 
 /**
  *
  * @author Pete.Heiss
  */
-public class AddPartController implements Initializable {
-    
+public class AddPartController implements Initializable
+{
     @FXML
-    private Button addProductCancelBtn;
-
-    @FXML
-    private Button addProductSaveBtn;
-
-    @FXML
-    private RadioButton addPartInHouseRdBtn;
-
-    @FXML
-    private RadioButton addPartOutsourced;
+    private ToggleGroup status;
 
     @FXML
     private TextField addPartId;
@@ -55,20 +48,28 @@ public class AddPartController implements Initializable {
     private TextField addPartMachineID;
 
     @FXML
-    void onActionAddPartInHouseRdBtn(ActionEvent event) {
+    void onActionAddPartInHouseRdBtn(ActionEvent event) throws IOException
+    {
 
     }
 
     @FXML
-    void onActionAddPartRdBtn(ActionEvent event) {
+    void onActionAddPartRdBtn(ActionEvent event) throws IOException
+    {
 
     }
     
-    //@FXML
-    //private void handleButtonAction(ActionEvent event) {
-    //    System.out.println("You clicked me!");
-    //    label.setText("Hello World!");
-    //}
+    @FXML
+    void onActionAddPartCancelBtn(ActionEvent event) throws IOException
+    {
+        
+    }
+    
+    @FXML
+    void onActionAddPartSaveBtn(ActionEvent event) throws IOException
+    {
+
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

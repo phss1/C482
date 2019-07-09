@@ -29,7 +29,19 @@ import javafx.application.Application;
  * @author 39ds03d
  */
 public class MainMenuController implements Initializable {
-
+    
+    Stage stage;
+    Parent scene;
+    
+    @FXML
+    void PartAddButton(ActionEvent event) throws IOException
+    {
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View/AddPart.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+            
     @FXML
     private Button PartSearchBtn;
 
@@ -50,9 +62,6 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> PartCostCol;
-
-    @FXML
-    private Button PartAddBtn;
 
     @FXML
     private Button PartModifyBtn;
@@ -98,11 +107,6 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void ExitProgramButton(ActionEvent event) {
-
-    }
-
-    @FXML
-    void PartAddButton(ActionEvent event) {
 
     }
 

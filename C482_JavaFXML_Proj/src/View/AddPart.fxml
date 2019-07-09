@@ -4,21 +4,25 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="319.0" prefWidth="333.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddPartController">
     <children>
-        <Button fx:id="addProductCancelBtn" layoutX="253.0" layoutY="277.0" onAction="onActionAddPartCancelBtn" text="Cancel" />
+        <Button layoutX="253.0" layoutY="277.0" onAction="onActionAddPartCancelBtn" text="Cancel" />
         <Label fx:id="label" layoutX="68.0" layoutY="56.0" minHeight="16" minWidth="22.0" prefHeight="17.0" prefWidth="22.0" text="ID" />
-      <Button fx:id="addProductSaveBtn" layoutX="190.0" layoutY="277.0" onAction="onActionAddPartSaveBtn" text="Save" />
+      <Button layoutX="190.0" layoutY="277.0" onAction="onActionAddPartSaveBtn" text="Save" />
       <Label layoutX="24.0" layoutY="24.0" text="Add Part" textFill="#2618a4">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <RadioButton fx:id="addPartInHouseRdBtn" layoutX="117.0" layoutY="24.0" mnemonicParsing="false" onAction="#onActionAddPartInHouseRdBtn" text="In-House" />
-      <RadioButton fx:id="addPartOutsourced" layoutX="213.0" layoutY="24.0" mnemonicParsing="false" onAction="#onActionAddPartRdBtn" text="Outsourced" />
+      <RadioButton layoutX="117.0" layoutY="24.0" mnemonicParsing="false" onAction="#onActionAddPartInHouseRdBtn" text="In-House">
+         <toggleGroup>
+            <ToggleGroup fx:id="status" />
+         </toggleGroup></RadioButton>
+      <RadioButton layoutX="213.0" layoutY="24.0" mnemonicParsing="false" onAction="#onActionAddPartRdBtn" text="Outsourced" toggleGroup="$status" />
       <TextField fx:id="addPartId" layoutX="98.0" layoutY="52.0" promptText="ID" />
       <TextField fx:id="addPartName" layoutX="98.0" layoutY="91.0" promptText="Part Name" />
       <TextField fx:id="addPartInv" layoutX="98.0" layoutY="125.0" promptText="Inv" />

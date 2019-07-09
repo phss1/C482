@@ -4,10 +4,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="312.0" prefWidth="321.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="Controller.ModifyPartController">
+<AnchorPane id="AnchorPane" prefHeight="312.0" prefWidth="321.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ModifyPartController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Button fx:id="CloseButton" layoutX="244.0" layoutY="270.0" onAction="onActionAddPartCancelBtn" text="Cancel" />
@@ -17,8 +18,11 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <RadioButton layoutX="108.0" layoutY="17.0" mnemonicParsing="false" onAction="#onActionAddPartInHouse" text="In-House" />
-      <RadioButton layoutX="196.0" layoutY="17.0" mnemonicParsing="false" onAction="#onActionAddPartOutsourced" text="Outsourced" />
+      <RadioButton layoutX="108.0" layoutY="17.0" mnemonicParsing="false" onAction="#onActionAddPartInHouse" text="In-House">
+         <toggleGroup>
+            <ToggleGroup fx:id="status" />
+         </toggleGroup></RadioButton>
+      <RadioButton layoutX="196.0" layoutY="17.0" mnemonicParsing="false" onAction="#onActionAddPartOutsourced" text="Outsourced" toggleGroup="$status" />
       <TextField fx:id="modifyPartId" layoutX="89.0" layoutY="45.0" promptText="ID" />
       <TextField fx:id="modifyPartName" layoutX="89.0" layoutY="84.0" promptText="Part Name" />
       <TextField fx:id="modifyPartInv" layoutX="89.0" layoutY="118.0" promptText="Inv" />

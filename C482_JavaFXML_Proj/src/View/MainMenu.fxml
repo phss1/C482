@@ -33,7 +33,7 @@
                   <TableColumn fx:id="PartCostCol" prefWidth="181.0" text="Price/Cost per Unit" />
               </columns>
             </TableView>
-            <Button fx:id="PartAddBtn" layoutX="228.0" layoutY="237.0" mnemonicParsing="false" onAction="#PartAddButton" text="Add" />
+            <Button layoutX="228.0" layoutY="237.0" mnemonicParsing="false" onAction="#PartAddButton" text="Add" />
             <Button fx:id="PartModifyBtn" layoutX="289.0" layoutY="237.0" mnemonicParsing="false" onAction="#PartModifyButton" text="Modify" />
             <Button fx:id="PartDeleteBtn" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" onAction="#PartDeleteButton" text="Delete" />
          </children>
