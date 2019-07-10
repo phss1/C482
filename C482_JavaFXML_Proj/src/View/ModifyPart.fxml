@@ -18,11 +18,11 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <RadioButton layoutX="108.0" layoutY="17.0" mnemonicParsing="false" onAction="#onActionInHouseRdBtn" text="In-House">
+      <RadioButton fx:id="inHouseRdBtn" layoutX="108.0" layoutY="17.0" mnemonicParsing="false" onAction="#onActionInHouseRdBtn" text="In-House">
          <toggleGroup>
             <ToggleGroup fx:id="status" />
          </toggleGroup></RadioButton>
-      <RadioButton layoutX="196.0" layoutY="17.0" mnemonicParsing="false" onAction="#onActionOutsourcedRdBtn" text="Outsourced" toggleGroup="$status" />
+      <RadioButton fx:id="outsourcedRdBtn" layoutX="196.0" layoutY="17.0" mnemonicParsing="false" onAction="#onActionOutsourcedRdBtn" text="Outsourced" toggleGroup="$status" />
       <TextField fx:id="modifyPartId" layoutX="89.0" layoutY="45.0" promptText="ID" />
       <TextField fx:id="modifyPartName" layoutX="89.0" layoutY="84.0" promptText="Part Name" />
       <TextField fx:id="modifyPartInv" layoutX="89.0" layoutY="118.0" promptText="Inv" />
@@ -37,5 +37,7 @@
       <Label fx:id="label11" layoutX="31.0" layoutY="87.0" minHeight="16" minWidth="41.0" prefHeight="17.0" prefWidth="41.0" text="Name" />
       <Label fx:id="label111" layoutX="39.0" layoutY="123.0" minHeight="16" minWidth="31.0" prefHeight="17.0" prefWidth="31.0" text="Inv" />
       <Label fx:id="label1111" layoutX="10.0" layoutY="162.0" minHeight="16" minWidth="62.0" prefHeight="17.0" prefWidth="62.0" text="Price/Cost" />
+      <TextField fx:id="companyNameTxtFld" layoutX="91.0" layoutY="235.0" prefHeight="25.0" prefWidth="106.0" promptText="Mach ID" />
+      <Label fx:id="companyNameLbl" layoutX="16.0" layoutY="235.0" minHeight="16" minWidth="62.0" prefHeight="17.0" prefWidth="62.0" text="Company Name" />
     </children>
 </AnchorPane>

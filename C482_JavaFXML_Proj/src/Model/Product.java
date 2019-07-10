@@ -100,4 +100,10 @@ public class Product
     {
         
     }
+    
+    //check on this to be sure it's correct
+    public ObservableList<Part> getAllAssociatedParts(ObservableList<Part> allAssociatedParts)
+    {
+        return associatedParts;
+    }
 }
