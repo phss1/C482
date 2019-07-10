@@ -21,6 +21,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
+import Model.*;
 
 /**
  *
@@ -123,7 +124,16 @@ public class AddPartController implements Initializable
     @FXML
     void onActionSaveBtn (ActionEvent event)
     {
-        //Part newPart = new Part(int addPartId, String addPartName, );
+        //  Integer.parseInt(addPartMin), 
+        Part newPart = null; // Integer.parseInt(addPartId.getText()), String addPartName, Double.parseDouble(addPartPriceCost), Integer.parseInt(addPartInv), Integer.parseInt(addPartMin), Integer.parseInt(addPartMax);
+        newPart.setId(Integer.parseInt(addPartId.getText()));
+        newPart.setName(addPartName.getText());
+        newPart.setPrice(Double.parseDouble(addPartPriceCost.getText()));
+        newPart.setStock(Integer.parseInt(addPartInv.getText()));
+        newPart.setMin(Integer.parseInt(addPartMin.getText()));
+        newPart.setMax(Integer.parseInt(addPartMax.getText()));
+        
+        Inventory.addPart(newPart);
     }
     
     @Override
