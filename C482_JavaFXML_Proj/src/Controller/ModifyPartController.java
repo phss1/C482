@@ -12,17 +12,22 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 
 /**
  *
  * @author Pete.Heiss
  */
-public class ModifyPartController implements Initializable {
+public class ModifyPartController implements Initializable
+{
     @FXML
     private Button CloseButton;
 
     @FXML
     private Button SaveButton;
+
+    @FXML
+    private ToggleGroup status;
 
     @FXML
     private TextField modifyPartId;
@@ -46,17 +51,32 @@ public class ModifyPartController implements Initializable {
     private TextField modifyPartMachineId;
 
     @FXML
-    void onActionAddPartInHouse(ActionEvent event) {
+    void onActionInHouseRdBtn(ActionEvent event)
+    {
 
     }
 
     @FXML
-    void onActionAddPartOutsourced(ActionEvent event) {
+    void onActionOutsourcedRdBtn(ActionEvent event)
+    {
+
+    }
+    
+    @FXML
+    void onActionSaveBtn(ActionEvent event)
+    {
+
+    }
+    
+    @FXML
+    void onActionCancelBtn(ActionEvent event)
+    {
 
     }
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         // TODO
     }
 }

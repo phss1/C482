@@ -10,19 +10,18 @@
 
 <AnchorPane id="AnchorPane" prefHeight="319.0" prefWidth="333.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddPartController">
     <children>
-        <Button layoutX="253.0" layoutY="277.0" onAction="onActionAddPartCancelBtn" text="Cancel" />
         <Label fx:id="label" layoutX="68.0" layoutY="56.0" minHeight="16" minWidth="22.0" prefHeight="17.0" prefWidth="22.0" text="ID" />
-      <Button layoutX="190.0" layoutY="277.0" onAction="onActionAddPartSaveBtn" text="Save" />
+      <Button layoutX="190.0" layoutY="277.0" onAction="onActionSaveBtn" text="Save" />
       <Label layoutX="24.0" layoutY="24.0" text="Add Part" textFill="#2618a4">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <RadioButton layoutX="117.0" layoutY="24.0" mnemonicParsing="false" onAction="#onActionAddPartInHouseRdBtn" text="In-House">
+      <RadioButton layoutX="117.0" layoutY="24.0" mnemonicParsing="false" onAction="#onActionInHouseRdBtn" text="In-House">
          <toggleGroup>
             <ToggleGroup fx:id="status" />
          </toggleGroup></RadioButton>
-      <RadioButton layoutX="213.0" layoutY="24.0" mnemonicParsing="false" onAction="#onActionAddPartRdBtn" text="Outsourced" toggleGroup="$status" />
+      <RadioButton layoutX="213.0" layoutY="24.0" mnemonicParsing="false" onAction="#onActionOutsourcedRdBtn" text="Outsourced" toggleGroup="$status" />
       <TextField fx:id="addPartId" layoutX="98.0" layoutY="52.0" promptText="ID" />
       <TextField fx:id="addPartName" layoutX="98.0" layoutY="91.0" promptText="Part Name" />
       <TextField fx:id="addPartInv" layoutX="98.0" layoutY="125.0" promptText="Inv" />
@@ -36,5 +35,7 @@
       <Label fx:id="label1111" layoutX="28.0" layoutY="169.0" minHeight="16" minWidth="62.0" prefHeight="17.0" prefWidth="62.0" text="Price/Cost" />
       <Label fx:id="label11111" layoutX="55.0" layoutY="208.0" minHeight="16" minWidth="41.0" prefHeight="17.0" prefWidth="41.0" text="Max" />
       <Label fx:id="label111111" layoutX="184.0" layoutY="208.0" minHeight="16" minWidth="31.0" prefHeight="17.0" prefWidth="31.0" text="Min" />
+      <Button mnemonicParsing="false" text="Button" />
+      <Button layoutX="255.0" layoutY="277.0" mnemonicParsing="false" onAction="#onActionCancelBtn" text="Cancel" />
     </children>
 </AnchorPane>

@@ -28,18 +28,96 @@ import javafx.application.Application;
  *
  * @author 39ds03d
  */
-public class MainMenuController implements Initializable {
+public class MainMenuController implements Initializable
+{
     
     Stage stage;
     Parent scene;
     
     @FXML
-    void PartAddButton(ActionEvent event) throws IOException
+    void onActionPartAddButton(ActionEvent event) throws IOException
     {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/AddPart.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
+    }
+    
+    @FXML
+    void onActionExitProgramButton(ActionEvent event)
+    {
+
+    }
+
+    @FXML
+    void onActionPartDeleteButton(ActionEvent event)
+    {
+
+    }
+
+    @FXML
+    void onActionPartModifyButton(ActionEvent event) throws IOException
+    {
+        
+        Stage stage; 
+        Parent root;       
+        stage=(Stage) ExitBtn.getScene().getWindow();
+        //load up OTHER FXML document
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("ModifyPart.fxml"));
+        root =loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void onActionPartSearchButton(ActionEvent event)
+    {
+
+    }
+
+    @FXML
+    void onActionProductAddButton(ActionEvent event) throws IOException
+    {
+        
+        Stage stage; 
+        Parent root;       
+        stage=(Stage) ExitBtn.getScene().getWindow();
+        //load up OTHER FXML document
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("AddProduct.fxml"));
+        root =loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
+    }
+
+    @FXML
+    void onActionProductDeleteButton(ActionEvent event)
+    {
+
+    }
+    
+    @FXML
+    void onActionProductModifyButton(ActionEvent event) throws IOException
+    {
+        
+        Stage stage; 
+        Parent root;       
+        stage=(Stage) ProductModifyBtn.getScene().getWindow();
+        //load up OTHER FXML document
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("ModifyProduct.fxml"));
+        root =loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    @FXML
+    void ProductSearchButton(ActionEvent event)
+    {
+
     }
             
     @FXML
@@ -104,76 +182,6 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private Button ExitBtn;
-
-    @FXML
-    void ExitProgramButton(ActionEvent event) {
-
-    }
-
-    @FXML
-    void PartDeleteButton(ActionEvent event) {
-
-    }
-
-    @FXML
-    void PartModifyButton(ActionEvent event) throws IOException {
-        
-        Stage stage; 
-        Parent root;       
-        stage=(Stage) ExitBtn.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("ModifyPart.fxml"));
-        root =loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    void PartSearchButton(ActionEvent event) {
-
-    }
-
-    @FXML
-    void ProductAddButton(ActionEvent event) throws IOException {
-        
-        Stage stage; 
-        Parent root;       
-        stage=(Stage) ExitBtn.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("AddProduct.fxml"));
-        root =loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        
-    }
-
-    @FXML
-    void ProductDeleteButton(ActionEvent event) {
-
-    }
-
-    @FXML
-    void ProductModifyButton(ActionEvent event) throws IOException {
-        
-        Stage stage; 
-        Parent root;       
-        stage=(Stage) ProductModifyBtn.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("ModifyProduct.fxml"));
-        root =loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    @FXML
-    void ProductSearchButton(ActionEvent event) {
-
-    }
-
 
     /**
      * Initializes the controller class.

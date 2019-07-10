@@ -8,39 +8,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="410.0" prefWidth="749.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="Controller.ModifyProductController">
+<AnchorPane id="AnchorPane" prefHeight="410.0" prefWidth="749.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ModifyProductController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <Button fx:id="AddProdCancelBtn" layoutX="689.0" layoutY="376.0" onAction="#onActionModifyProdCancelBtn" text="Cancel" />
+      <Button layoutX="689.0" layoutY="376.0" onAction="#onActionCancelBtn" text="Cancel" />
       <Label fx:id="label1" layoutX="127.0" layoutY="117.0" minHeight="16" minWidth="69" />
-      <Button fx:id="AddProdSaveBtn" layoutX="642.0" layoutY="376.0" onAction="#onActionModifyProdSaveBtn" text="Save" />
-      <Button fx:id="AddProdDeleteBtn" layoutX="690.0" layoutY="347.0" onAction="#onActionModifyProdDeleteBtn" text="Delete" />
-      <Button fx:id="AddProdSearchBtn" layoutX="533.0" layoutY="7.0" mnemonicParsing="false" onAction="#ModifyProdPartSearchButton" text="Search" />
-      <TextField fx:id="ModifyProdSeatchLbl" layoutX="594.0" layoutY="7.0" promptText="Search Text" />
-      <TableView fx:id="ModifyProdTable2" layoutX="293.0" layoutY="208.0" prefHeight="134.0" prefWidth="450.0">
+      <Button layoutX="642.0" layoutY="376.0" onAction="#onActionSaveProdBtn" text="Save" />
+      <Button layoutX="690.0" layoutY="347.0" onAction="#onActionDeleteProdBtn" text="Delete" />
+      <Button layoutX="529.0" layoutY="7.0" mnemonicParsing="false" onAction="#onActionSearchPartBtn" text="Search" />
+      <TextField fx:id="prodPartSearchTxtFld" layoutX="594.0" layoutY="7.0" promptText="Search Text" />
+      <TableView fx:id="productTbl" layoutX="293.0" layoutY="206.0" prefHeight="134.0" prefWidth="450.0">
          <columns>
-            <TableColumn fx:id="ModifyProdAddPartIdCol2" prefWidth="75.0" text="Part ID" />
-            <TableColumn fx:id="ModifyProdAddPartNameCol2" prefWidth="75.0" text="Part Name" />
-            <TableColumn fx:id="ModifyProdAddPartInvLvlCol2" prefWidth="118.0" text="Inventory Level" />
-            <TableColumn fx:id="ModifyProdAddPartCostCol2" prefWidth="181.0" text="Price/Cost per Unit" />
+            <TableColumn fx:id="prodId" prefWidth="75.0" text="Part ID" />
+            <TableColumn fx:id="prodName" prefWidth="75.0" text="Part Name" />
+            <TableColumn fx:id="prodInvLvl" prefWidth="118.0" text="Inventory Level" />
+            <TableColumn fx:id="prodPriceCost" prefWidth="181.0" text="Price/Cost per Unit" />
          </columns>
       </TableView>
-      <TableView fx:id="ModifyProdTable1" layoutX="293.0" layoutY="37.0" prefHeight="134.0" prefWidth="450.0">
+      <TableView fx:id="productPartsTbl" layoutX="293.0" layoutY="37.0" prefHeight="134.0" prefWidth="450.0">
          <columns>
-            <TableColumn fx:id="ModifyProdAddPartIdCol" prefWidth="75.0" text="Part ID" />
-            <TableColumn fx:id="ModifyProdAddPartNameCol" prefWidth="75.0" text="Part Name" />
-            <TableColumn fx:id="ModifyProdAddInvLvlCol" prefWidth="118.0" text="Inventory Level" />
-            <TableColumn fx:id="ModifyProdAddPartCostCol" prefWidth="181.0" text="Price/Cost per Unit" />
+            <TableColumn fx:id="partId" prefWidth="75.0" text="Part ID" />
+            <TableColumn fx:id="partName" prefWidth="75.0" text="Part Name" />
+            <TableColumn fx:id="partInvLvl" prefWidth="118.0" text="Inventory Level" />
+            <TableColumn fx:id="partPriceCost" prefWidth="181.0" text="Price/Cost per Unit" />
          </columns>
       </TableView>
-      <Button layoutX="690.0" layoutY="177.0" onAction="#onActionModifyProdAddBtn" text="Add" />
+      <Button layoutX="690.0" layoutY="177.0" onAction="#onActionAddPartBtn" text="Add" />
       <Label fx:id="label1" layoutX="51.0" layoutY="104.0" minHeight="16" minWidth="22.0" prefHeight="17.0" prefWidth="22.0" text="ID" />
-      <TextField fx:id="addPartIdLbl" editable="false" layoutX="81.0" layoutY="100.0" prefHeight="25.0" prefWidth="117.0" promptText="Auto Gen - Disabled" />
-      <TextField fx:id="addPartNameLbl" layoutX="81.0" layoutY="139.0" prefHeight="25.0" prefWidth="117.0" promptText="Part Name" />
-      <TextField fx:id="addPartInvLbl" layoutX="81.0" layoutY="173.0" prefHeight="25.0" prefWidth="117.0" promptText="Inv" />
-      <TextField fx:id="addPartMaxLbl" layoutX="81.0" layoutY="252.0" prefHeight="25.0" prefWidth="69.0" promptText="Max" />
-      <TextField fx:id="addPartPriceCostLbl" layoutX="81.0" layoutY="213.0" prefHeight="25.0" prefWidth="117.0" promptText="Price/Cost" />
-      <TextField fx:id="addPartMinLbl" layoutX="208.0" layoutY="252.0" prefHeight="25.0" prefWidth="62.0" promptText="Min" />
+      <TextField fx:id="prodIdTxtFld" editable="false" layoutX="81.0" layoutY="100.0" prefHeight="25.0" prefWidth="117.0" promptText="Auto Gen - Disabled" />
+      <TextField fx:id="prodNameTxtFld" layoutX="81.0" layoutY="139.0" prefHeight="25.0" prefWidth="117.0" promptText="Part Name" />
+      <TextField fx:id="prodInvTxtFld" layoutX="81.0" layoutY="173.0" prefHeight="25.0" prefWidth="117.0" promptText="Inv" />
+      <TextField fx:id="prodMaxTxtFld" layoutX="81.0" layoutY="252.0" prefHeight="25.0" prefWidth="69.0" promptText="Max" />
+      <TextField fx:id="prodPriceTxtFld" layoutX="81.0" layoutY="213.0" prefHeight="25.0" prefWidth="117.0" promptText="Price/Cost" />
+      <TextField fx:id="prodMinTxtFld" layoutX="208.0" layoutY="252.0" prefHeight="25.0" prefWidth="62.0" promptText="Min" />
       <Label fx:id="label11" layoutX="23.0" layoutY="143.0" minHeight="16" minWidth="41.0" prefHeight="17.0" prefWidth="41.0" text="Name" />
       <Label fx:id="label111" layoutX="39.0" layoutY="177.0" minHeight="16" minWidth="31.0" prefHeight="17.0" prefWidth="31.0" text="Inv" />
       <Label fx:id="label1111" layoutX="11.0" layoutY="217.0" minHeight="16" minWidth="62.0" prefHeight="17.0" prefWidth="62.0" text="Price/Cost" />

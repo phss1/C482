@@ -20,100 +20,98 @@ import javafx.scene.control.TextField;
  *
  * @author Pete.Heiss
  */
-public class AddProductController implements Initializable {
+public class AddProductController implements Initializable
+{
     @FXML
-    private Button AddProdCancelBtn;
+    private Label label;
 
     @FXML
-    private Button AddProdSaveBtn;
+    private Label label1;
 
     @FXML
-    private Button AddProdDeleteBtn;
+    private TextField prodPartSearchTxtFld;
 
     @FXML
-    private Button AddProdSearchBtn;
+    private TableView<?> productsTable;
 
     @FXML
-    private TextField AddProdSeatchFld;
+    private TableColumn<?, ?> prodPartId;
 
     @FXML
-    private TableView<?> addPartsTable2;
+    private TableColumn<?, ?> prodPartName;
 
     @FXML
-    private TableColumn<?, ?> AddProdAddPartIdCol2;
+    private TableColumn<?, ?> productInvLvl;
 
     @FXML
-    private TableColumn<?, ?> AddProdAddPartNameCol2;
+    private TableColumn<?, ?> prodPriceCost;
 
     @FXML
-    private TableColumn<?, ?> AddProdAddPartInvLvlCol2;
+    private TableView<?> partsTable;
 
     @FXML
-    private TableColumn<?, ?> AddProdAddPartCostCol2;
+    private TableColumn<?, ?> partId;
 
     @FXML
-    private TableView<?> addPartsTable1;
+    private TableColumn<?, ?> partName;
 
     @FXML
-    private TableColumn<?, ?> AddProdAddPartIdCol1;
+    private TableColumn<?, ?> partInv;
 
     @FXML
-    private TableColumn<?, ?> AddProdAddPartNameCol1;
+    private TableColumn<?, ?> partPriceCost;
 
     @FXML
-    private TableColumn<?, ?> AddProdAddInvLvlCol1;
+    private TextField prodIdTxtFld;
 
     @FXML
-    private TableColumn<?, ?> AddProdAddPartCostCol1;
+    private TextField prodNameTxtFld;
 
     @FXML
-    private Button addProdAddPartTbl1;
+    private TextField prodInvTxtFld;
 
     @FXML
-    private TextField addPartId;
+    private TextField prodMaxTxtFld;
 
     @FXML
-    private TextField addPartName;
+    private TextField prodPriceTxtFld;
 
     @FXML
-    private TextField addPartInv;
+    private TextField prodMinTxtFld;
 
     @FXML
-    private TextField addPartMax;
-
-    @FXML
-    private TextField addPartPriceCost;
-
-    @FXML
-    private TextField addPartMin;
-
-    @FXML
-    void PartSearchButton(ActionEvent event) {
+    void onActionAddPartBtn(ActionEvent event)
+    {
 
     }
 
     @FXML
-    void onActionAddProdAddBtn(ActionEvent event) {
+    void onActionCancelBtn(ActionEvent event)
+    {
 
     }
 
     @FXML
-    void onActionAddProdCancelBtn(ActionEvent event) {
+    void onActionDeleteBtn(ActionEvent event)
+    {
 
     }
 
     @FXML
-    void onActionAddProdDeleteBtn(ActionEvent event) {
+    void onActionSaveProductBtn(ActionEvent event)
+    {
 
     }
 
     @FXML
-    void onActionAddProdSaveBtn(ActionEvent event) {
+    void onActionSearchPartBtn(ActionEvent event)
+    {
 
     }
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         // TODO
     }    
     

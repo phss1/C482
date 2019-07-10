@@ -24,6 +24,9 @@ import javafx.scene.control.ToggleGroup;
 public class AddPartController implements Initializable
 {
     @FXML
+    private Label label;
+
+    @FXML
     private ToggleGroup status;
 
     @FXML
@@ -48,31 +51,32 @@ public class AddPartController implements Initializable
     private TextField addPartMachineID;
 
     @FXML
-    void onActionAddPartInHouseRdBtn(ActionEvent event) throws IOException
+    void onActionInHouseRdBtn(ActionEvent event)
     {
 
     }
 
     @FXML
-    void onActionAddPartRdBtn(ActionEvent event) throws IOException
+    void onActionOutsourcedRdBtn(ActionEvent event)
+    {
+
+    }
+
+    @FXML
+    void onActionCancelBtn(ActionEvent event)
     {
 
     }
     
     @FXML
-    void onActionAddPartCancelBtn(ActionEvent event) throws IOException
+    void onActionSaveBtn (ActionEvent event)
     {
         
     }
     
-    @FXML
-    void onActionAddPartSaveBtn(ActionEvent event) throws IOException
-    {
-
-    }
-    
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
         // TODO
     }    
     
