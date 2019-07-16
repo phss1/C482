@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import Model.*;
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -74,30 +75,9 @@ public class AddPartController implements Initializable
     @FXML
     private RadioButton outsourcedRdBtn;
 
+    
     @FXML
-    void onActionInHouseRdBtn(ActionEvent event)
-    {
-        machineIdLbl.setVisible(true);
-        machineIdTxtFld.setVisible(true);
-        machineIdTxtFld.setEditable(true);
-        companyNameLbl.setVisible(false);
-        companyNameTxtFld.setVisible(false);
-        companyNameTxtFld.setEditable(false);
-    }
-
-    @FXML
-    void onActionOutsourcedRdBtn(ActionEvent event)
-    {
-        machineIdLbl.setVisible(false);
-        machineIdTxtFld.setVisible(false);
-        machineIdTxtFld.setEditable(false);
-        companyNameLbl.setVisible(true);
-        companyNameTxtFld.setVisible(true);
-        companyNameTxtFld.setEditable(true);
-    }
-
-    @FXML
-    void onActionCancelBtn(ActionEvent event) throws IOException
+    void cancel(MouseEvent event) throws IOException
     {
         addPartId.clear();
         addPartName.clear();
@@ -120,9 +100,31 @@ public class AddPartController implements Initializable
         stage.setScene(new Scene(scene));
         stage.show();
     }
-    
+
     @FXML
-    void onActionSaveBtn (ActionEvent event)
+    void inHouse(MouseEvent event)
+    {
+        machineIdLbl.setVisible(true);
+        machineIdTxtFld.setVisible(true);
+        machineIdTxtFld.setEditable(true);
+        companyNameLbl.setVisible(false);
+        companyNameTxtFld.setVisible(false);
+        companyNameTxtFld.setEditable(false);
+    }
+
+    @FXML
+    void outSourced(MouseEvent event)
+    {
+        machineIdLbl.setVisible(false);
+        machineIdTxtFld.setVisible(false);
+        machineIdTxtFld.setEditable(false);
+        companyNameLbl.setVisible(true);
+        companyNameTxtFld.setVisible(true);
+        companyNameTxtFld.setEditable(true);
+    }
+
+    @FXML
+    void savePart(MouseEvent event)
     {
         //  Integer.parseInt(addPartMin), 
         Part newPart = null; // Integer.parseInt(addPartId.getText()), String addPartName, Double.parseDouble(addPartPriceCost), Integer.parseInt(addPartInv), Integer.parseInt(addPartMin), Integer.parseInt(addPartMax);
@@ -134,6 +136,8 @@ public class AddPartController implements Initializable
         newPart.setMax(Integer.parseInt(addPartMax.getText()));
         
         Inventory.addPart(newPart);
+        
+        
     }
     
     @Override

@@ -1,127 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.Scene;
-import javafx.scene.Parent;
-import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import javafx.application.Application;
+import Controller.AddPartController;
 
-/**
- * FXML Controller class
- *
- * @author 39ds03d
- */
-public class MainMenuController implements Initializable
+public class MainMenuController
 {
-    
-    Stage stage;
-    Parent scene;
-    
     @FXML
-    void onActionPartAddButton(ActionEvent event) throws IOException
-    {
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/AddPart.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
-    }
-    
-    @FXML
-    void onActionExitProgramButton(ActionEvent event)
-    {
-
-    }
+    private Label label;
 
     @FXML
-    void onActionPartDeleteButton(ActionEvent event)
-    {
-
-    }
+    private AnchorPane PartAnchorPane;
 
     @FXML
-    void onActionPartModifyButton(ActionEvent event) throws IOException
-    {
-        
-        Stage stage; 
-        Parent root;       
-        stage=(Stage) ExitBtn.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("ModifyPart.fxml"));
-        root =loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    void onActionPartSearchButton(ActionEvent event)
-    {
-
-    }
-
-    @FXML
-    void onActionProductAddButton(ActionEvent event) throws IOException
-    {
-        
-        Stage stage; 
-        Parent root;       
-        stage=(Stage) ExitBtn.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("AddProduct.fxml"));
-        root =loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-        
-    }
-
-    @FXML
-    void onActionProductDeleteButton(ActionEvent event)
-    {
-
-    }
-    
-    @FXML
-    void onActionProductModifyButton(ActionEvent event) throws IOException
-    {
-        
-        Stage stage; 
-        Parent root;       
-        stage=(Stage) ProductModifyBtn.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("ModifyProduct.fxml"));
-        root =loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    @FXML
-    void ProductSearchButton(ActionEvent event)
-    {
-
-    }
-            
-    @FXML
-    private Button PartSearchBtn;
+    private Button searchPartsBtn;
 
     @FXML
     private TextField PartSearchTxtLbl;
@@ -140,6 +42,9 @@ public class MainMenuController implements Initializable
 
     @FXML
     private TableColumn<?, ?> PartCostCol;
+
+    @FXML
+    private Button addPartBtn;
 
     @FXML
     private Button PartModifyBtn;
@@ -172,22 +77,89 @@ public class MainMenuController implements Initializable
     private TableColumn<?, ?> ProductCostCol;
 
     @FXML
-    private Button ProductAddBtn;
+    private Button addProductBtn;
 
     @FXML
-    private Button ProductModifyBtn;
+    private Button modifyProductBtn;
 
     @FXML
-    private Button ProductDeleteBtn;
+    private Button deleteProductBtn;
 
     @FXML
     private Button ExitBtn;
 
+    @FXML
+    void addPart(MouseEvent event)
+    {
+        try
+        {
+            String inv = "";
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AddPart.fxml"));
+            AddPartController controller = new AddPartController(inv);
+            
+            loader.setLoader(controller));
+            
+        }
+        catch (IOException c)
+        {
+            
+        }
+    }
+
+    @FXML
+    void addProduct(MouseEvent event)
+    {
+        
+    }
+
+    @FXML
+    void deletePart(MouseEvent event)
+    {
+        
+    }
+
+    @FXML
+    void deleteProduct(MouseEvent event)
+    {
+        
+    }
+
+    @FXML
+    void exitProgram(MouseEvent event)
+    {
+        
+    }
+
+    @FXML
+    void modifyPart(MouseEvent event)
+    {
+        
+    }
+
+    @FXML
+    void modifyProduct(MouseEvent event)
+    {
+        
+    }
+
+    @FXML
+    void searchParts(MouseEvent event)
+    {
+        
+    }
+
+    @FXML
+    void searchProducts(MouseEvent event)
+    {
+        
+    }
+
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    //@Override
+    public void initialize(URL url, ResourceBundle rb)
+    {
         // TODO
     }    
 }
