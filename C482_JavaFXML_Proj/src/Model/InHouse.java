@@ -11,20 +11,20 @@ package Model;
  */
 public class InHouse extends Part
 {
-    private String machineId;
+    private int machineId;
     
-    public InHouse(int id, String name, Double price, int stock, int min, int max, String machineId)
+    public InHouse(int id, String name, Double price, int stock, int min, int max, int machineId)
     {
         super(id, name, price, stock, min, max);
         this.machineId = machineId;
     }
 
-    public String getMachineId()
+    public int getMachineId()
     {
         return machineId;
     }
 
-    public void setMachineId(String machineId)
+    public void setMachineId(int machineId)
     {
         this.machineId = machineId;
     }
