@@ -32,13 +32,13 @@ public class C482_JavaFXML_Proj extends Application {
     public static void main(String[] args)
     {
         //add in house test data
-        Part a1 = new InHouse(1,"Part A1",2.99,10,5,108,100);
-        Part a2 = new InHouse(2,"Part A2",3.99,11,6,109,101);
-        Part a3 = new InHouse(3,"Part A3",1.99,12,7,107,102);
-        Part a4 = new InHouse(4,"Part A4",4.99,16,8,101,109);
-        Part a5 = new InHouse(5,"Part A5",5.99,17,9,102,105);
+        InHouse a1 = new InHouse(1,"Part A1",2.99,10,5,108,100);
+        InHouse a2 = new InHouse(2,"Part A2",3.99,11,6,109,101);
+        InHouse a3 = new InHouse(3,"Part A3",1.99,12,7,107,102);
+        InHouse a4 = new InHouse(4,"Part A4",4.99,16,8,101,109);
+        InHouse a5 = new InHouse(5,"Part A5",5.99,17,9,102,105);
         
-        System.out.println(Inventory.getAllParts());
+        //System.out.println(Inventory.getAllParts());
         
         Inventory.addPart(a1);
         Inventory.addPart(a2);
