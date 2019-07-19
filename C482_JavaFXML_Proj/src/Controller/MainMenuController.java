@@ -14,10 +14,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import Controller.*;
 import Model.*;
-import View.*;
+import Controller.*;
+import com.sun.glass.ui.View;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class MainMenuController
@@ -35,19 +38,19 @@ public class MainMenuController
     private TextField PartSearchTxtLbl;
 
     @FXML
-    private TableView<?> PartsTable;
+    private TableView<Part> PartsTable;
 
     @FXML
-    private TableColumn<?, ?> PartIdCol;
+    private TableColumn<Part, Integer> PartIdCol;
 
     @FXML
-    private TableColumn<?, ?> PartNameCol;
+    private TableColumn<Part, String> PartNameCol;
 
     @FXML
-    private TableColumn<?, ?> PartInvLvlCol;
+    private TableColumn<Part, Integer> PartInvLvlCol;
 
     @FXML
-    private TableColumn<?, ?> PartCostCol;
+    private TableColumn<Part, Double> PartCostCol;
 
     @FXML
     private Button addPartBtn;
@@ -68,19 +71,19 @@ public class MainMenuController
     private TextField ProductSearchTxtLbl;
 
     @FXML
-    private TableView<?> ProductsTable;
+    private TableView<Product> ProductsTable;
 
     @FXML
-    private TableColumn<?, ?> ProductIdCol;
+    private TableColumn<Product, Integer> ProductIdCol;
 
     @FXML
-    private TableColumn<?, ?> ProductNameCol;
+    private TableColumn<Product, String> ProductNameCol;
 
     @FXML
-    private TableColumn<?, ?> ProductInvLvlCol;
+    private TableColumn<Product, Integer> ProductInvLvlCol;
 
     @FXML
-    private TableColumn<?, ?> ProductCostCol;
+    private TableColumn<Product, Double> ProductCostCol;
 
     @FXML
     private Button addProductBtn;
@@ -93,29 +96,17 @@ public class MainMenuController
 
     @FXML
     private Button ExitBtn;
-
+    
+    Stage stage;
+    Parent scene;
+    
     @FXML
-    void addPart(MouseEvent event)
+    void addPart(ActionEvent event) throws IOException
     {
-        try
-        {
-            
-            Inventory inv = new Inventory();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AddPart.fxml"));
-            AddPartController controller = new AddPartController(inv);
-            
-            loader.setController(controller);
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.getScene(scene);
-            stage.setResizable(false);
-            stage.show();
-        }
-        catch (IOException c)
-        {
-            
-        }
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View/AddPart.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @FXML
@@ -172,6 +163,10 @@ public class MainMenuController
     //@Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
-    }    
+        PartsTable.setItems(Inventory.getAllParts());
+        PartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        PartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        PartInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        PartCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+    }
 }

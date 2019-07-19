@@ -23,19 +23,19 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="searchPartsBtn" layoutX="254.0" layoutY="19.0" mnemonicParsing="false" onMouseClicked="#searchParts" text="Search" />
+            <Button fx:id="searchPartsBtn" layoutX="254.0" layoutY="19.0" mnemonicParsing="false" text="Search" />
             <TextField fx:id="PartSearchTxtLbl" layoutX="315.0" layoutY="19.0" promptText="Search Text" />
             <TableView fx:id="PartsTable" layoutX="14.0" layoutY="53.0" prefHeight="177.0" prefWidth="450.0">
               <columns>
                 <TableColumn fx:id="PartIdCol" prefWidth="75.0" text="Part ID" />
                 <TableColumn fx:id="PartNameCol" prefWidth="75.0" text="Part Name" />
-                  <TableColumn fx:id="PartInvLvlCol" prefWidth="118.0" text="Inventory Level" />
-                  <TableColumn fx:id="PartCostCol" prefWidth="181.0" text="Price/Cost per Unit" />
+                <TableColumn fx:id="PartInvLvlCol" prefWidth="118.0" text="Inventory Level" />
+                <TableColumn fx:id="PartCostCol" prefWidth="181.0" text="Price/Cost per Unit" />
               </columns>
             </TableView>
-            <Button fx:id="addPartBtn" layoutX="228.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addPart" text="Add" />
-            <Button fx:id="PartModifyBtn" layoutX="289.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#modifyPart" text="Modify" />
-            <Button fx:id="PartDeleteBtn" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#deletePart" text="Delete" />
+            <Button fx:id="addPartBtn" layoutX="228.0" layoutY="237.0" mnemonicParsing="false" onAction="#addPart" text="Add" />
+            <Button fx:id="PartModifyBtn" layoutX="289.0" layoutY="237.0" mnemonicParsing="false" text="Modify" />
+            <Button fx:id="PartDeleteBtn" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" text="Delete" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="ProductAnchorPane" layoutX="507.0" layoutY="38.0" prefHeight="294.0" prefWidth="478.0" style="-fx-border-color: black; -fx-border-radius: 10;">
@@ -45,7 +45,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="ProductSearchBtn" layoutX="254.0" layoutY="19.0" mnemonicParsing="false" onMouseClicked="#searchProducts" text="Search" />
+            <Button fx:id="ProductSearchBtn" layoutX="254.0" layoutY="19.0" mnemonicParsing="false" text="Search" />
             <TextField fx:id="ProductSearchTxtLbl" layoutX="315.0" layoutY="19.0" promptText="Search Text" />
             <TableView fx:id="ProductsTable" layoutX="14.0" layoutY="53.0" prefHeight="177.0" prefWidth="450.0">
                <columns>
@@ -55,11 +55,11 @@
                   <TableColumn fx:id="ProductCostCol" prefWidth="181.0" text="Price/Cost per Unit" />
                </columns>
             </TableView>
-            <Button fx:id="addProductBtn" layoutX="228.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#addProduct" text="Add" />
-            <Button fx:id="modifyProductBtn" layoutX="289.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#modifyProduct" text="Modify" />
-            <Button fx:id="deleteProductBtn" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" onMouseClicked="#deleteProduct" text="Delete" />
+            <Button fx:id="addProductBtn" layoutX="228.0" layoutY="237.0" mnemonicParsing="false" text="Add" />
+            <Button fx:id="modifyProductBtn" layoutX="289.0" layoutY="237.0" mnemonicParsing="false" text="Modify" />
+            <Button fx:id="deleteProductBtn" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" text="Delete" />
          </children>
       </AnchorPane>
-      <Button fx:id="ExitBtn" layoutX="950.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#exitProgram" text="Exit" />
+      <Button fx:id="ExitBtn" layoutX="950.0" layoutY="349.0" mnemonicParsing="false" text="Exit" />
     </children>
 </AnchorPane>

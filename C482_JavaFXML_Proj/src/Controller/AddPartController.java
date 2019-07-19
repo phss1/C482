@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package Controller;
-
-import Model.Inventory;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,7 +20,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import Model.*;
-import java.awt.event.MouseEvent;
 
 /**
  *
@@ -77,7 +74,7 @@ public class AddPartController implements Initializable
 
     
     @FXML
-    void cancel(MouseEvent event) throws IOException
+    void cancel(ActionEvent event) throws IOException
     {
         addPartId.clear();
         addPartName.clear();
@@ -102,29 +99,25 @@ public class AddPartController implements Initializable
     }
 
     @FXML
-    void inHouse(MouseEvent event)
+    void inHouse(ActionEvent event) throws IOException
     {
         machineIdLbl.setVisible(true);
         machineIdTxtFld.setVisible(true);
-        machineIdTxtFld.setEditable(true);
         companyNameLbl.setVisible(false);
         companyNameTxtFld.setVisible(false);
-        companyNameTxtFld.setEditable(false);
     }
 
     @FXML
-    void outSourced(MouseEvent event)
+    void outSourced(ActionEvent event) throws IOException
     {
         machineIdLbl.setVisible(false);
         machineIdTxtFld.setVisible(false);
-        machineIdTxtFld.setEditable(false);
         companyNameLbl.setVisible(true);
         companyNameTxtFld.setVisible(true);
-        companyNameTxtFld.setEditable(true);
     }
 
     @FXML
-    void savePart(MouseEvent event)
+    void savePart(ActionEvent event) throws IOException
     {
         //  Integer.parseInt(addPartMin), 
         Part newPart = null; // Integer.parseInt(addPartId.getText()), String addPartName, Double.parseDouble(addPartPriceCost), Integer.parseInt(addPartInv), Integer.parseInt(addPartMin), Integer.parseInt(addPartMax);
@@ -135,7 +128,7 @@ public class AddPartController implements Initializable
         newPart.setMin(Integer.parseInt(addPartMin.getText()));
         newPart.setMax(Integer.parseInt(addPartMax.getText()));
         
-        Inventory.addPart(newPart);
+        //Inventory.addPart(newPart);
         
         
     }
@@ -143,7 +136,10 @@ public class AddPartController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        machineIdLbl.setVisible(true);
+        machineIdTxtFld.setVisible(true);
+        companyNameLbl.setVisible(false);
+        companyNameTxtFld.setVisible(false);
     }    
     
 }
