@@ -16,12 +16,18 @@ import Model.*;
 public class Inventory
 {
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
+    private static ObservableList<Part> filteredParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
     
     //getters
     public static ObservableList<Part> getAllParts()
     {
         return allParts;
+    }
+    
+    public static ObservableList<Part> getAllFilteredParts()
+    {
+        return filteredParts;
     }
 
     public static ObservableList<Product> getAllProducts()

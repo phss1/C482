@@ -118,7 +118,7 @@ public class MainMenuController implements Initializable
         PartCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
     
-    public void search(int id)
+    public Part search(int id)
     {
         int index = -1;
         for(Part currentPart : Inventory.getAllParts())
@@ -126,13 +126,10 @@ public class MainMenuController implements Initializable
             index++;
             if(currentPart.getId() == id)
             {
-                PartsTable.setItems((ObservableList<Part>) Inventory.getAllParts().get(id));
-                PartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-                PartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-                PartInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
-                PartCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+                return currentPart;
             }
         }
+        return null;
     }
     
     public void updatePart(int id, Part part)
@@ -159,6 +156,33 @@ public class MainMenuController implements Initializable
                 Inventory.getAllParts().remove(currentPart);
             }
         }
+    }
+    
+    public Part selectPart(int id)
+    {
+        for(Part currentPart : Inventory.getAllParts())
+        {
+            if(currentPart.getId() == id)
+            {
+                return currentPart;
+            }
+        }
+        return null;
+    }
+    
+    public ObservableList<Part> filterParts(int id)
+    {
+        if(!(Inventory.getAllFilteredParts().isEmpty()))
+            Inventory.getAllFilteredParts().clear();
+        
+        for(Part currentPart : Inventory.getAllParts())
+        {
+            if(currentPart.getId() == id)
+            {
+                Inventory.getAllFilteredParts().add(currentPart);
+            }
+        }
+        return Inventory.getAllFilteredParts();
     }
     
     @FXML
@@ -203,10 +227,17 @@ public class MainMenuController implements Initializable
     public void searchParts(ActionEvent event) throws IOException
     {
         int searchId = Integer.parseInt(PartSearchTxtLbl.getText());
-        search(searchId);
+        Part searchedPart = search(searchId);
+        
+        PartsTable.getSelectionModel().select(searchedPart);
+        
+        PartsTable.setItems(Inventory.getAllParts());
+        PartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        PartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        PartInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        PartCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
     
-
     void searchProducts(ActionEvent event)
     {
         
