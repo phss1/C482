@@ -119,18 +119,30 @@ public class AddPartController implements Initializable
     @FXML
     void savePart(ActionEvent event) throws IOException
     {
-        //  Integer.parseInt(addPartMin), 
-        Part newPart = null; // Integer.parseInt(addPartId.getText()), String addPartName, Double.parseDouble(addPartPriceCost), Integer.parseInt(addPartInv), Integer.parseInt(addPartMin), Integer.parseInt(addPartMax);
-        newPart.setId(Integer.parseInt(addPartId.getText()));
-        newPart.setName(addPartName.getText());
-        newPart.setPrice(Double.parseDouble(addPartPriceCost.getText()));
-        newPart.setStock(Integer.parseInt(addPartInv.getText()));
-        newPart.setMin(Integer.parseInt(addPartMin.getText()));
-        newPart.setMax(Integer.parseInt(addPartMax.getText()));
+        int id = Integer.parseInt(addPartId.getText());
+        String name = addPartName.getText();
+        Double price = Double.parseDouble(addPartPriceCost.getText());
+        int stock = Integer.parseInt(addPartInv.getText());
+        int min = Integer.parseInt(addPartMin.getText());
+        int max = Integer.parseInt(addPartMax.getText());
         
-        //Inventory.addPart(newPart);
+        if(outsourcedRdBtn.isSelected())
+        {
+            String companyName = companyNameTxtFld.getText();
+            Part outsourced = new Outsourced(id, name, price, stock, min, max, companyName);
+            Inventory.addPart(outsourced);
+        }
+        else if(inHouseRdBtn.isSelected())
+        {
+            int machineId = Integer.parseInt(machineIdTxtFld.getText());
+            Part inHouse = new InHouse(id, name, price, stock, min, max, machineId);
+            Inventory.addPart(inHouse);
+        }
         
-        
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
     
     @Override
