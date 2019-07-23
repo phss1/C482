@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -117,6 +118,49 @@ public class MainMenuController implements Initializable
         PartCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
     
+    public void search(int id)
+    {
+        int index = -1;
+        for(Part currentPart : Inventory.getAllParts())
+        {
+            index++;
+            if(currentPart.getId() == id)
+            {
+                PartsTable.setItems((ObservableList<Part>) Inventory.getAllParts().get(id));
+                PartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+                PartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+                PartInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+                PartCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+            }
+        }
+    }
+    
+    public void updatePart(int id, Part part)
+    {
+        int index = -1;
+        for(Part currentPart : Inventory.getAllParts())
+        {
+            index++;
+            if(currentPart.getId() == id)
+            {
+                Inventory.getAllParts().set(index, currentPart);
+            }
+        }
+    }
+    
+    public void deletePart(int id)
+    {
+        int index = -1;
+        for(Part currentPart : Inventory.getAllParts())
+        {
+            index++;
+            if(currentPart.getId() == id)
+            {
+                Inventory.getAllParts().remove(currentPart);
+            }
+        }
+    }
+    
     @FXML
     void addPart(ActionEvent event) throws IOException
     {
@@ -126,42 +170,44 @@ public class MainMenuController implements Initializable
         stage.show();
     }
 
-    void addProduct(MouseEvent event)
+    void addProduct(ActionEvent event)
     {
         
     }
 
-    void deletePart(MouseEvent event)
+    void deletePart(ActionEvent event)
     {
         
     }
 
-    void deleteProduct(MouseEvent event)
+    void deleteProduct(ActionEvent event)
     {
         
     }
 
-    void exitProgram(MouseEvent event)
+    void exitProgram(ActionEvent event)
     {
         
     }
 
-    void modifyPart(MouseEvent event)
+    void modifyPart(ActionEvent event)
     {
         
     }
 
-    void modifyProduct(MouseEvent event)
+    void modifyProduct(ActionEvent event)
     {
         
     }
 
-    void searchParts(MouseEvent event)
+    public void searchParts(ActionEvent event) throws IOException
     {
-        
+        int searchId = Integer.parseInt(PartSearchTxtLbl.getText());
+        search(searchId);
     }
+    
 
-    void searchProducts(MouseEvent event)
+    void searchProducts(ActionEvent event)
     {
         
     }

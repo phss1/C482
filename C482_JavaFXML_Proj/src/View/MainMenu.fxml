@@ -23,7 +23,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="searchPartsBtn" layoutX="254.0" layoutY="19.0" mnemonicParsing="false" text="Search" />
+            <Button fx:id="searchPartsBtn" layoutX="254.0" layoutY="19.0" mnemonicParsing="false" onAction="#searchParts" text="Search" />
             <TextField fx:id="PartSearchTxtLbl" layoutX="315.0" layoutY="19.0" promptText="Search Text" />
             <TableView fx:id="PartsTable" layoutX="14.0" layoutY="53.0" prefHeight="177.0" prefWidth="450.0">
               <columns>

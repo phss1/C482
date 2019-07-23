@@ -48,12 +48,4 @@ public class C482_JavaFXML_Proj extends Application {
         
         launch(args);
     }
-    
-    /**
-     * @param args the command line arguments
-     
-    public static void main(String[] args) {
-        launch(args);
-    }*/
-    
 }
