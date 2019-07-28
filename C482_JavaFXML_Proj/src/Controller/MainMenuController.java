@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -145,7 +146,7 @@ public class MainMenuController implements Initializable
         }
     }
     
-    public void deletePart(int id)
+    public void deleteSelectedPart(int id)
     {
         int index = -1;
         for(Part currentPart : Inventory.getAllParts())
@@ -201,7 +202,8 @@ public class MainMenuController implements Initializable
 
     public void deletePart(ActionEvent event)
     {
-        
+        int selectedPartId = (PartsTable.getSelectionModel().getSelectedItem()).getId();
+        deleteSelectedPart(selectedPartId);
     }
 
     public void deleteProduct(ActionEvent event)
@@ -216,6 +218,17 @@ public class MainMenuController implements Initializable
 
     public void modifyPart(ActionEvent event) throws IOException
     {
+        //Array selectedTableViewPart = Controller.ModifyPartController.class.getFields() PartsTable.getSelectionModel().getSelectedItem();
+        
+        URL url = getClass().getResource("/View/ModifyPart.fxml");
+        FXMLLoader fxmlloader = new FXMLLoader();
+        fxmlloader.setLocation(url);
+        fxmlloader.setBuilderFactory(new JavaFXBuilderFactory());
+        
+
+        //pContent.getChildren().clear();
+        //pContent.getChildren().add((Node) fxmlloader.load(url.openStream()));
+        
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/ModifyPart.fxml"));
         stage.setScene(new Scene(scene));

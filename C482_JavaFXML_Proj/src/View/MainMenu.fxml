@@ -35,7 +35,7 @@
             </TableView>
             <Button fx:id="addPartBtn" layoutX="228.0" layoutY="237.0" mnemonicParsing="false" onAction="#addPart" text="Add" />
             <Button fx:id="PartModifyBtn" layoutX="289.0" layoutY="237.0" mnemonicParsing="false" onAction="#modifyPart" text="Modify" />
-            <Button fx:id="PartDeleteBtn" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="PartDeleteBtn" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" onAction="#deletePart" text="Delete" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="ProductAnchorPane" layoutX="507.0" layoutY="38.0" prefHeight="294.0" prefWidth="478.0" style="-fx-border-color: black; -fx-border-radius: 10;">
