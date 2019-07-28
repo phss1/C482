@@ -152,6 +152,8 @@ public class AddPartController implements Initializable
         machineIdTxtFld.setVisible(true);
         companyNameLbl.setVisible(false);
         companyNameTxtFld.setVisible(false);
-    }    
-    
+        
+        //need if statement to check for part type if outsourced or inhouse
+        
+    }
 }

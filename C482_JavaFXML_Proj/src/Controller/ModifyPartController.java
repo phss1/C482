@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package Controller;
+import Model.Inventory;
+import Model.Part;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -133,5 +135,13 @@ public class ModifyPartController implements Initializable
         machineIdTxtFld.setVisible(true);
         companyNameLbl.setVisible(false);
         companyNameTxtFld.setVisible(false);
+        
+        Part filteredPartToModify = Inventory.getAllFilteredParts().get(0);
+        modifyPartId.setText(Integer.toString(filteredPartToModify.getId()));
+        modifyPartName.setText(filteredPartToModify.getName());
+        modifyPartInv.setText(Integer.toString(filteredPartToModify.getStock()));
+        modifyPartPriceCost.setText(Double.toString(filteredPartToModify.getPrice()));
+        modifyPartMax.setText(Integer.toString(filteredPartToModify.getMax()));
+        modifyPartMin.setText(Integer.toString(filteredPartToModify.getMin()));
     }
 }

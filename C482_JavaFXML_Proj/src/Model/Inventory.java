@@ -18,7 +18,7 @@ public class Inventory
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Part> filteredParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
-    
+
     //getters
     public static ObservableList<Part> getAllParts()
     {
@@ -49,7 +49,15 @@ public class Inventory
     
     public static void deletePart(Part part)
     {
-        
+        int index = -1;
+        for(Part currentPart : Inventory.getAllParts())
+        {
+            index++;
+            if(currentPart.getId() == part.getId())
+            {
+                Inventory.getAllParts().remove(currentPart);
+            }
+        }
     }
     
     public static void deleteProduct(Product product)
