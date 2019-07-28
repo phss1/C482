@@ -37,7 +37,7 @@
       <Label fx:id="label11" layoutX="31.0" layoutY="87.0" minHeight="16" minWidth="41.0" prefHeight="17.0" prefWidth="41.0" text="Name" />
       <Label fx:id="label111" layoutX="39.0" layoutY="123.0" minHeight="16" minWidth="31.0" prefHeight="17.0" prefWidth="31.0" text="Inv" />
       <Label fx:id="label1111" layoutX="10.0" layoutY="162.0" minHeight="16" minWidth="62.0" prefHeight="17.0" prefWidth="62.0" text="Price/Cost" />
-      <TextField fx:id="companyNameTxtFld" layoutX="111.0" layoutY="235.0" prefHeight="25.0" prefWidth="106.0" promptText="Company Name" />
+      <TextField fx:id="companyNameTxtFld" layoutX="117.0" layoutY="235.0" prefHeight="25.0" prefWidth="106.0" promptText="Company Name" />
       <Label fx:id="companyNameLbl" layoutX="16.0" layoutY="235.0" minHeight="16" minWidth="62.0" prefHeight="17.0" prefWidth="89.0" text="Company Name" />
     </children>
 </AnchorPane>
