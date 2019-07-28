@@ -34,7 +34,7 @@
               </columns>
             </TableView>
             <Button fx:id="addPartBtn" layoutX="228.0" layoutY="237.0" mnemonicParsing="false" onAction="#addPart" text="Add" />
-            <Button fx:id="PartModifyBtn" layoutX="289.0" layoutY="237.0" mnemonicParsing="false" text="Modify" />
+            <Button fx:id="PartModifyBtn" layoutX="289.0" layoutY="237.0" mnemonicParsing="false" onAction="#modifyPart" text="Modify" />
             <Button fx:id="PartDeleteBtn" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" text="Delete" />
          </children>
       </AnchorPane>

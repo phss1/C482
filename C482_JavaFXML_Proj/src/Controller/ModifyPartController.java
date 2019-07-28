@@ -78,35 +78,31 @@ public class ModifyPartController implements Initializable
     private RadioButton outsourcedRdBtn;
 
     @FXML
-    void onActionInHouseRdBtn(ActionEvent event)
+    void inHouseRdBtn(ActionEvent event)
     {
         machineIdLbl.setVisible(true);
         machineIdTxtFld.setVisible(true);
-        machineIdTxtFld.setEditable(true);
         companyNameLbl.setVisible(false);
         companyNameTxtFld.setVisible(false);
-        companyNameTxtFld.setEditable(false);
     }
 
     @FXML
-    void onActionOutsourcedRdBtn(ActionEvent event)
+    void outsourcedRdBtn(ActionEvent event)
     {
         machineIdLbl.setVisible(false);
         machineIdTxtFld.setVisible(false);
-        machineIdTxtFld.setEditable(false);
         companyNameLbl.setVisible(true);
         companyNameTxtFld.setVisible(true);
-        companyNameTxtFld.setEditable(true);
     }
     
     @FXML
-    void onActionSaveBtn(ActionEvent event)
+    public void saveBtn(ActionEvent event)
     {
         
     }
     
     @FXML
-    void onActionCancelBtn(ActionEvent event) throws IOException
+    public void cancelBtn(ActionEvent event) throws IOException
     {
         modifyPartId.clear();
         modifyPartName.clear();
@@ -133,6 +129,9 @@ public class ModifyPartController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        machineIdLbl.setVisible(true);
+        machineIdTxtFld.setVisible(true);
+        companyNameLbl.setVisible(false);
+        companyNameTxtFld.setVisible(false);
     }
 }

@@ -132,7 +132,7 @@ public class MainMenuController implements Initializable
         return null;
     }
     
-    public void updatePart(int id, Part part)
+    public void modifySelectedPart(int id, Part part)
     {
         int index = -1;
         for(Part currentPart : Inventory.getAllParts())
@@ -186,7 +186,7 @@ public class MainMenuController implements Initializable
     }
     
     @FXML
-    void addPart(ActionEvent event) throws IOException
+    public void addPart(ActionEvent event) throws IOException
     {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/AddPart.fxml"));
@@ -194,29 +194,32 @@ public class MainMenuController implements Initializable
         stage.show();
     }
 
-    void addProduct(ActionEvent event)
+    public void addProduct(ActionEvent event)
     {
         
     }
 
-    void deletePart(ActionEvent event)
+    public void deletePart(ActionEvent event)
     {
         
     }
 
-    void deleteProduct(ActionEvent event)
+    public void deleteProduct(ActionEvent event)
     {
         
     }
 
-    void exitProgram(ActionEvent event)
+    public void exitProgram(ActionEvent event)
     {
         
     }
 
-    void modifyPart(ActionEvent event)
+    public void modifyPart(ActionEvent event) throws IOException
     {
-        
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View/ModifyPart.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     void modifyProduct(ActionEvent event)
@@ -231,7 +234,7 @@ public class MainMenuController implements Initializable
         
         PartsTable.getSelectionModel().select(searchedPart);
         
-        PartsTable.setItems(Inventory.getAllParts());
+        //PartsTable.setItems(Inventory.getAllParts());
         PartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         PartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         PartInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
