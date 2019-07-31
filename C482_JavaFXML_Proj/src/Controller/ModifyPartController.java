@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package Controller;
+import Model.InHouse;
 import Model.Inventory;
+import Model.Outsourced;
 import Model.Part;
 import java.io.IOException;
 import java.net.URL;
@@ -98,9 +100,32 @@ public class ModifyPartController implements Initializable
     }
     
     @FXML
-    public void saveBtn(ActionEvent event)
+    public void saveBtn(ActionEvent event) throws IOException
     {
+        int partId = Integer.parseInt(modifyPartId.getText());
+        String partName = modifyPartName.getText();
+        int partInv = Integer.parseInt(modifyPartInv.getText());
+        Double partPrice = Double.parseDouble(modifyPartPriceCost.getText());
+        int partMax = Integer.parseInt(modifyPartMax.getText());
+        int partMin = Integer.parseInt(modifyPartMin.getText());        
         
+        if(outsourcedRdBtn.isSelected())
+        {
+            String companyName = companyNameTxtFld.getText();
+            Part outsourced = new Outsourced(partId, partName, partPrice, partInv, partMin, partMax, companyName);
+            Inventory.modifyPart(outsourced);
+        }
+        else if(inHouseRdBtn.isSelected())
+        {
+            int machineId = Integer.parseInt(machineIdTxtFld.getText());
+            Part inHouse = new InHouse(partId, partName, partPrice, partInv, partMin, partMax, machineId);
+            Inventory.modifyPart(inHouse);
+        }
+        
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
     
     @FXML

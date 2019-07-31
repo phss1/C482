@@ -60,6 +60,19 @@ public class Inventory
         }
     }
     
+    public static void modifyPart(Part part)
+    {
+                int index = -1;
+        for(Part currentPart : Inventory.getAllParts())
+        {
+            index++;
+            if(currentPart.getId() == part.getId())
+            {
+                Inventory.getAllParts().set(index, part);
+            }
+        }
+    }
+    
     public static void deleteProduct(Product product)
     {
         
