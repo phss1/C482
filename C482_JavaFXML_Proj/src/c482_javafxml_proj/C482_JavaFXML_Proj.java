@@ -32,8 +32,8 @@ public class C482_JavaFXML_Proj extends Application {
     public static void main(String[] args)
     {
         //add in house test data
-        InHouse a1 = new InHouse(1,"Part A1",2.99,10,5,108,100);
-        InHouse a2 = new InHouse(2,"Part A2",3.99,11,6,109,101);
+        InHouse a1 = new InHouse(1,"Part A1",2.99,10,5,108,false,100);
+        InHouse a2 = new InHouse(2,"Part A2",3.99,11,6,109,false,101);
         
         //System.out.println(Inventory.getAllParts());
         
@@ -41,8 +41,8 @@ public class C482_JavaFXML_Proj extends Application {
         Inventory.addPart(a2);
         
         //add outsourced part test data
-        Part o1 = new Outsourced(3,"Part O1",2.99,10,5,108,"Company1");
-        Part o2 = new Outsourced(4,"Part O2",3.99,11,6,109,"Company2");
+        Part o1 = new Outsourced(3,"Part O1",2.99,10,5,108,true,"Company1");
+        Part o2 = new Outsourced(4,"Part O2",3.99,11,6,109,true,"Company2");
         Inventory.addPart(o1);
         Inventory.addPart(o2);
         

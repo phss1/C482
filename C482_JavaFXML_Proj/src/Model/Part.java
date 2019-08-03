@@ -5,6 +5,10 @@
  */
 package Model;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
+
 /**
  *
  * @author 39ds03d
@@ -17,8 +21,9 @@ public abstract class Part
     private int stock;
     private int min;
     private int max;
+    private boolean outsourced;
 
-    public Part(int id, String name, Double price, int stock, int min, int max)
+    public Part(int id, String name, Double price, int stock, int min, int max, boolean outsourced)
     {
         this.id = id;
         this.name = name;
@@ -26,6 +31,7 @@ public abstract class Part
         this.stock = stock;
         this.min = min;
         this.max = max;
+        this.outsourced = outsourced;
     }
 
     public int getId()
@@ -85,5 +91,23 @@ public abstract class Part
     public void setMax(int max)
     {
         this.max = max;
+    }
+    
+    public boolean getOutsourced()
+    {
+        return outsourced;
+    }
+
+    public void setOutsourced(boolean outsourced)
+    {
+        this.outsourced = outsourced;
+    }
+    
+    public static void isInvInputCorrect(int partInvMin, int partInvMax)
+    {
+        if(partInvMin < partInvMax)
+        {
+            Inventory.displayInputError("The inventory minimum is greater than the maximum. Please fix before that part can be saved.");
+        }
     }
 }

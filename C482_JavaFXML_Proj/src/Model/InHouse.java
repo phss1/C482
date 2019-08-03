@@ -13,9 +13,9 @@ public class InHouse extends Part
 {
     private int machineId;
     
-    public InHouse(int id, String name, Double price, int stock, int min, int max, int machineId)
+    public InHouse(int id, String name, Double price, int stock, int min, int max, boolean outsourced, int machineId)
     {
-        super(id, name, price, stock, min, max);
+        super(id, name, price, stock, min, max, outsourced);
         this.machineId = machineId;
     }
 

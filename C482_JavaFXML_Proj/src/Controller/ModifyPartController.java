@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package Controller;
-import Model.InHouse;
-import Model.Inventory;
-import Model.Outsourced;
+import Model.*;
 import Model.Part;
 import java.io.IOException;
 import java.net.URL;
@@ -17,11 +15,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 /**
@@ -102,30 +104,35 @@ public class ModifyPartController implements Initializable
     @FXML
     public void saveBtn(ActionEvent event) throws IOException
     {
-        int partId = Integer.parseInt(modifyPartId.getText());
-        String partName = modifyPartName.getText();
-        int partInv = Integer.parseInt(modifyPartInv.getText());
-        Double partPrice = Double.parseDouble(modifyPartPriceCost.getText());
-        int partMax = Integer.parseInt(modifyPartMax.getText());
-        int partMin = Integer.parseInt(modifyPartMin.getText());        
+        Boolean inputConvResult = Inventory.checkPartUserInput(modifyPartId.getText(),modifyPartName.getText(),modifyPartPriceCost.getText(),modifyPartInv.getText(),modifyPartMin.getText(),modifyPartMax.getText());
         
-        if(outsourcedRdBtn.isSelected())
+        if(inputConvResult == false)
         {
-            String companyName = companyNameTxtFld.getText();
-            Part outsourced = new Outsourced(partId, partName, partPrice, partInv, partMin, partMax, companyName);
-            Inventory.modifyPart(outsourced);
-        }
-        else if(inHouseRdBtn.isSelected())
-        {
-            int machineId = Integer.parseInt(machineIdTxtFld.getText());
-            Part inHouse = new InHouse(partId, partName, partPrice, partInv, partMin, partMax, machineId);
-            Inventory.modifyPart(inHouse);
-        }
+            int partId = Integer.parseInt(modifyPartId.getText());
+            String partName = modifyPartName.getText();
+            int partInv = Integer.parseInt(modifyPartInv.getText());
+            Double partPrice = Double.parseDouble(modifyPartPriceCost.getText());
+            int partMax = Integer.parseInt(modifyPartMax.getText());
+            int partMin = Integer.parseInt(modifyPartMin.getText());  
         
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+            if(outsourcedRdBtn.isSelected())
+            {
+                String companyName = companyNameTxtFld.getText();
+                Part outsourced = new Outsourced(partId, partName, partPrice, partInv, partMin, partMax, true, companyName);
+                Inventory.modifyPart(outsourced);
+            }
+            else if(inHouseRdBtn.isSelected())
+            {
+                int machineId = Integer.parseInt(machineIdTxtFld.getText());
+                Part inHouse = new InHouse(partId, partName, partPrice, partInv, partMin, partMax, false, machineId);
+                Inventory.modifyPart(inHouse);
+            }
+            
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
     
     @FXML
@@ -156,11 +163,6 @@ public class ModifyPartController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        machineIdLbl.setVisible(true);
-        machineIdTxtFld.setVisible(true);
-        companyNameLbl.setVisible(false);
-        companyNameTxtFld.setVisible(false);
-        
         Part filteredPartToModify = Inventory.getAllFilteredParts().get(0);
         modifyPartId.setText(Integer.toString(filteredPartToModify.getId()));
         modifyPartName.setText(filteredPartToModify.getName());
@@ -168,5 +170,26 @@ public class ModifyPartController implements Initializable
         modifyPartPriceCost.setText(Double.toString(filteredPartToModify.getPrice()));
         modifyPartMax.setText(Integer.toString(filteredPartToModify.getMax()));
         modifyPartMin.setText(Integer.toString(filteredPartToModify.getMin()));
+        
+        if(filteredPartToModify.getOutsourced() == true)
+        {
+            machineIdLbl.setVisible(false);
+            machineIdTxtFld.setVisible(false);
+            companyNameLbl.setVisible(true);
+            companyNameTxtFld.setVisible(true);
+            
+            outsourcedRdBtn.setSelected(true);
+            inHouseRdBtn.setDisable(true);
+        }
+        else
+        {
+            machineIdLbl.setVisible(false);
+            machineIdTxtFld.setVisible(false);
+            companyNameLbl.setVisible(true);
+            companyNameTxtFld.setVisible(true);
+            
+            inHouseRdBtn.setSelected(true);
+            outsourcedRdBtn.setDisable(true);
+        }
     }
 }

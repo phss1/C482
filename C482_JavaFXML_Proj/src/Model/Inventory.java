@@ -8,6 +8,9 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import Model.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 
 /**
  *
@@ -73,6 +76,59 @@ public class Inventory
         }
     }
     
+
+    
+    public static boolean checkPartUserInput(String id, String name, String price, String inv, String min, String max)
+    {
+        Boolean conversionFailed = null;
+        Exception error;
+        int partId;
+        String partName;
+        int partInv;
+        Double partPrice;
+        int partMin;
+        int partMiax; 
+        
+        try
+        {
+            partId = Integer.parseInt(id);
+            partName = name;
+            partInv = Integer.parseInt(inv);
+            partPrice = Double.parseDouble(price);
+            partMin = Integer.parseInt(min);
+            partMiax = Integer.parseInt(max);   
+        }
+        catch(Exception e)
+        {
+            conversionFailed = true;
+            String errorReason = getPartInputErrorType(e.toString());
+            displayInputError(errorReason);            
+        }
+        
+        return conversionFailed;
+    }
+    
+    public static void displayInputError(String errorMessage)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, errorMessage, ButtonType.OK);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+        alert.show();
+    }
+    
+    public static String getPartInputErrorType(String error)
+    {
+        String errorString = null;
+        if(error.contains("NumberFormatException"))
+        {
+            errorString = "You've entered a non-numeric value in a field expecting a number/integer type. Please correct it and try again.";
+        }
+        
+        
+        
+        return errorString;
+    }
+            
+    //product methods
     public static void deleteProduct(Product product)
     {
         

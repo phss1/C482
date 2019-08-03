@@ -13,9 +13,9 @@ public class Outsourced extends Part
 {
     private String companyName;
     
-    public Outsourced(int id, String name, Double price, int stock, int min, int max, String companyName)
+    public Outsourced(int id, String name, Double price, int stock, int min, int max, boolean outsourced, String companyName)
     {
-        super(id, name, price, stock, min, max);
+        super(id, name, price, stock, min, max, outsourced);
         this.companyName = companyName;
     }
 

@@ -129,13 +129,13 @@ public class AddPartController implements Initializable
         if(outsourcedRdBtn.isSelected())
         {
             String companyName = companyNameTxtFld.getText();
-            Part outsourced = new Outsourced(id, name, price, stock, min, max, companyName);
+            Part outsourced = new Outsourced(id, name, price, stock, min, max, true, companyName);
             Inventory.addPart(outsourced);
         }
         else if(inHouseRdBtn.isSelected())
         {
             int machineId = Integer.parseInt(machineIdTxtFld.getText());
-            Part inHouse = new InHouse(id, name, price, stock, min, max, machineId);
+            Part inHouse = new InHouse(id, name, price, stock, min, max, false, machineId);
             Inventory.addPart(inHouse);
         }
         
