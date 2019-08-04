@@ -103,11 +103,29 @@ public abstract class Part
         this.outsourced = outsourced;
     }
     
-    public static void isInvInputCorrect(int partInvMin, int partInvMax)
+    public static boolean isInvInputCorrect(int partInvMin, int partInvMax)
     {
-        if(partInvMin < partInvMax)
+        boolean result = (partInvMax > partInvMin);
+        if(result = true)
         {
             Inventory.displayInputError("The inventory minimum is greater than the maximum. Please fix before that part can be saved.");
         }
+        System.out.println(partInvMin);
+        System.out.println(partInvMax);
+        
+        return result;
+    }
+    
+    public static boolean nullFieldValueExists(String id, String name, String price, String inv, String min, String max)
+    {
+        boolean result = (id.isEmpty()) || (name.isEmpty()) || (price.isEmpty()) || (inv.isEmpty()) || (min.isEmpty()) || (max.isEmpty());
+        
+        if(result = true)
+        {
+            Inventory.displayInputError("You've left a field empty. Please enter a value and try again.");
+
+        }
+
+        return result;
     }
 }

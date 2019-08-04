@@ -65,7 +65,7 @@ public class Inventory
     
     public static void modifyPart(Part part)
     {
-                int index = -1;
+        int index = -1;
         for(Part currentPart : Inventory.getAllParts())
         {
             index++;
@@ -80,7 +80,7 @@ public class Inventory
     
     public static boolean checkPartUserInput(String id, String name, String price, String inv, String min, String max)
     {
-        Boolean conversionFailed = null;
+        Boolean conversionFailed = false;
         Exception error;
         int partId;
         String partName;
@@ -122,6 +122,8 @@ public class Inventory
         {
             errorString = "You've entered a non-numeric value in a field expecting a number/integer type. Please correct it and try again.";
         }
+        
+        //need null checker
         
         
         

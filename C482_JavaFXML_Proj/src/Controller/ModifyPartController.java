@@ -105,8 +105,17 @@ public class ModifyPartController implements Initializable
     public void saveBtn(ActionEvent event) throws IOException
     {
         Boolean inputConvResult = Inventory.checkPartUserInput(modifyPartId.getText(),modifyPartName.getText(),modifyPartPriceCost.getText(),modifyPartInv.getText(),modifyPartMin.getText(),modifyPartMax.getText());
+        Boolean invInputCorrect = Part.isInvInputCorrect(Integer.parseInt(modifyPartMin.getText()), Integer.parseInt(modifyPartMax.getText()));
+        Boolean nullValuesExist = Part.nullFieldValueExists(modifyPartId.getText(),modifyPartName.getText(),modifyPartPriceCost.getText(),modifyPartInv.getText(),modifyPartMin.getText(),modifyPartMax.getText());
         
-        if(inputConvResult == false)
+        System.out.println(modifyPartName.getText());
+        System.out.println(modifyPartPriceCost.getText());
+        System.out.println(modifyPartInv.getText());
+        System.out.println(modifyPartMin.getText());
+        System.out.println(modifyPartMax.getText());
+        
+        
+        if(inputConvResult.equals(false) && invInputCorrect.equals(false) && nullValuesExist.equals(false))
         {
             int partId = Integer.parseInt(modifyPartId.getText());
             String partName = modifyPartName.getText();
