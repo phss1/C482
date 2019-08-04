@@ -8,9 +8,12 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import Model.*;
+import java.util.Optional;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
+import javafx.stage.Modality;
 
 /**
  *
@@ -76,8 +79,6 @@ public class Inventory
         }
     }
     
-
-    
     public static boolean checkPartUserInput(String id, String name, String price, String inv, String min, String max)
     {
         Boolean conversionFailed = false;
@@ -134,5 +135,29 @@ public class Inventory
     public static void deleteProduct(Product product)
     {
         
+    }
+    
+    //misc methods
+    public static int confirmOperation(String confirmationType)
+    {
+        String fullMessage = "Are you sure you want to " + confirmationType + "?";
+        
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Confirm " + confirmationType);
+        alert.setContentText(fullMessage);
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        int test = -1;
+        if(result.get() == ButtonType.OK)
+        {
+            test = 0;
+        }
+        else if(result.get() == ButtonType.CANCEL)
+        {
+            test = 1;
+        }
+        return test;
     }
 }

@@ -11,8 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Model.*;
-import Controller.*;
-import javafx.scene.Node;
 
 /**
  *
@@ -45,6 +43,15 @@ public class C482_JavaFXML_Proj extends Application {
         Part o2 = new Outsourced(4,"Part O2",3.99,11,6,109,true,"Company2");
         Inventory.addPart(o1);
         Inventory.addPart(o2);
+        
+        Product p1 = new Product(1, "P1", 1.00, 1, 1, 4);
+        Product p2 = new Product(2, "P1", 2.00, 2, 2, 5);
+        Product p3 = new Product(3, "P1", 3.00, 3, 3, 6);
+        Product p4 = new Product(4, "P1", 4.00, 4, 4, 7);
+        Inventory.addProduct(p1);
+        Inventory.addProduct(p2);
+        Inventory.addProduct(p3);
+        Inventory.addProduct(p4);
         
         launch(args);
     }

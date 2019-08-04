@@ -76,26 +76,31 @@ public class AddPartController implements Initializable
     @FXML
     void cancel(ActionEvent event) throws IOException
     {
-        addPartId.clear();
-        addPartName.clear();
-        addPartInv.clear();
-        addPartPriceCost.clear();
-        addPartMax.clear();
-        addPartMin.clear();
+        int result = Inventory.confirmOperation("cancel");
         
-        if(outsourcedRdBtn.isSelected())
+        if(1 == result)
         {
-            companyNameTxtFld.clear();
+            addPartId.clear();
+            addPartName.clear();
+            addPartInv.clear();
+            addPartPriceCost.clear();
+            addPartMax.clear();
+            addPartMin.clear();
+
+            if(outsourcedRdBtn.isSelected())
+            {
+                companyNameTxtFld.clear();
+            }
+            else
+            {
+                machineIdTxtFld.clear();
+            }
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
         }
-        else
-        {
-            machineIdTxtFld.clear();
-        }
-        
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
     }
 
     @FXML

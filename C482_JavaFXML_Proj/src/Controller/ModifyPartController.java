@@ -147,26 +147,32 @@ public class ModifyPartController implements Initializable
     @FXML
     public void cancelBtn(ActionEvent event) throws IOException
     {
-        modifyPartId.clear();
-        modifyPartName.clear();
-        modifyPartInv.clear();
-        modifyPartPriceCost.clear();
-        modifyPartMax.clear();
-        modifyPartMin.clear();
         
-        if(outsourcedRdBtn.isSelected())
-        {
-            companyNameTxtFld.clear();
-        }
-        else
-        {
-            machineIdTxtFld.clear();
-        }
+        int result = Inventory.confirmOperation("cancel");
         
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        if(1 == result)
+        {
+            modifyPartId.clear();
+            modifyPartName.clear();
+            modifyPartInv.clear();
+            modifyPartPriceCost.clear();
+            modifyPartMax.clear();
+            modifyPartMin.clear();
+
+            if(outsourcedRdBtn.isSelected())
+            {
+                companyNameTxtFld.clear();
+            }
+            else
+            {
+                machineIdTxtFld.clear();
+            }
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+            }
     }
     
     @Override

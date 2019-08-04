@@ -117,6 +117,12 @@ public class MainMenuController implements Initializable
         PartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         PartInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         PartCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        ProductsTable.setItems(Inventory.getAllProducts());
+        ProductIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        ProductNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        ProductInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        ProductCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
     
     public Part search(int id)
@@ -193,11 +199,6 @@ public class MainMenuController implements Initializable
         Inventory.deletePart(selectedPart);
     }
 
-    public void deleteProduct(ActionEvent event)
-    {
-        
-    }
-
     public void exitProgram(ActionEvent event)
     {
         
@@ -216,11 +217,6 @@ public class MainMenuController implements Initializable
         stage.show();
     }
 
-    void modifyProduct(ActionEvent event)
-    {
-        
-    }
-
     public void searchParts(ActionEvent event) throws IOException
     {
         int searchId = Integer.parseInt(PartSearchTxtLbl.getText());
@@ -231,6 +227,16 @@ public class MainMenuController implements Initializable
         PartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         PartInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         PartCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+    }
+    
+    void modifyProduct(ActionEvent event)
+    {
+        
+    }
+    
+    public void deleteProduct(ActionEvent event)
+    {
+        
     }
     
     void searchProducts(ActionEvent event)
