@@ -186,7 +186,7 @@ public class MainMenuController implements Initializable
     public void deletePart(ActionEvent event)
     {
         Part selectedPart = PartsTable.getSelectionModel().getSelectedItem();
-        Inventory.deletePart(selectedPart);
+        Part.deletePart(selectedPart);
     }
 
     public void modifyPart(ActionEvent event) throws IOException
@@ -228,25 +228,24 @@ public class MainMenuController implements Initializable
         Product selectedTableViewProduct = ProductsTable.getSelectionModel().getSelectedItem();
         int selectedProductId = selectedTableViewProduct.getId();
         
-        filterParts(selectedProductId);
-                
+        Product.filterProducts(selectedProductId);
+        
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/ModifyProduct.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
-
     }
     
     public void deleteProduct(ActionEvent event)
     {
         Product selectedProduct = ProductsTable.getSelectionModel().getSelectedItem();
-        Inventory.deleteProduct(selectedProduct);
+        Product.deleteProduct(selectedProduct);
     }
     
     public void searchProducts(ActionEvent event)
     {
         int searchId = Integer.parseInt(ProductSearchTxtLbl.getText());
-        Product searchedProduct = productSearch(searchId);
+        Product searchedProduct = Product.productSearch(searchId);
         
         ProductsTable.getSelectionModel().select(searchedProduct);
         PartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -255,18 +254,13 @@ public class MainMenuController implements Initializable
         PartCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
     
-    public Product productSearch(int id)
-    {
-        int index = -1;
-        for(Product currentProduct : Inventory.getAllProducts())
-        {
-            index++;
-            if(currentProduct.getId() == id)
-            {
-                return currentProduct;
-            }
-        }
-        return null;
+    /*  
+    public void changeControllerScreen(String screenName) throws IOException
+    {        
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View/" + screenName + ".fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
-
+    */
 }

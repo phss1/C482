@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import Model.Inventory;
+import Model.Part;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -15,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  *
@@ -32,34 +35,34 @@ public class AddProductController implements Initializable
     private TextField prodPartSearchTxtFld;
 
     @FXML
-    private TableView<?> productsTable;
+    private TableView<Part> productPartsTbl;
 
     @FXML
-    private TableColumn<?, ?> prodPartId;
+    private TableColumn<Part, Integer> prodPartId;
 
     @FXML
-    private TableColumn<?, ?> prodPartName;
+    private TableColumn<Part, String> prodPartName;
 
     @FXML
-    private TableColumn<?, ?> productInvLvl;
+    private TableColumn<Part, Integer> productInvLvl;
 
     @FXML
-    private TableColumn<?, ?> prodPriceCost;
+    private TableColumn<Part, Double> prodPriceCost;
 
     @FXML
-    private TableView<?> partsTable;
+    private TableView<Part> productAssociatedPartsTbl;
 
     @FXML
-    private TableColumn<?, ?> partId;
+    private TableColumn<Part, Integer> partId;
 
     @FXML
-    private TableColumn<?, ?> partName;
+    private TableColumn<Part, String> partName;
 
     @FXML
-    private TableColumn<?, ?> partInv;
+    private TableColumn<Part, Integer> partInv;
 
     @FXML
-    private TableColumn<?, ?> partPriceCost;
+    private TableColumn<Part, Double> partPriceCost;
 
     @FXML
     private TextField prodIdTxtFld;
@@ -112,7 +115,12 @@ public class AddProductController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
-    }    
-    
+        productPartsTbl.setItems(Inventory.getAllParts());
+        partId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        //line for associated products table 
+    }
 }

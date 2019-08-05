@@ -104,9 +104,9 @@ public class ModifyPartController implements Initializable
     @FXML
     public void saveBtn(ActionEvent event) throws IOException
     {
-        Boolean inputConvResult = Inventory.checkPartUserInput(modifyPartId.getText(),modifyPartName.getText(),modifyPartPriceCost.getText(),modifyPartInv.getText(),modifyPartMin.getText(),modifyPartMax.getText());
-        Boolean invInputCorrect = Part.isInvInputCorrect(Integer.parseInt(modifyPartMin.getText()), Integer.parseInt(modifyPartMax.getText()));
-        Boolean nullValuesExist = Part.nullFieldValueExists(modifyPartId.getText(),modifyPartName.getText(),modifyPartPriceCost.getText(),modifyPartInv.getText(),modifyPartMin.getText(),modifyPartMax.getText());
+        Boolean inputConvResult = Inventory.checkUserInput(modifyPartId.getText(),modifyPartName.getText(),modifyPartPriceCost.getText(),modifyPartInv.getText(),modifyPartMin.getText(),modifyPartMax.getText());
+        Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(modifyPartMin.getText()), Integer.parseInt(modifyPartMax.getText()));
+        Boolean nullValuesExist = Inventory.nullFieldValueExists(modifyPartId.getText(),modifyPartName.getText(),modifyPartPriceCost.getText(),modifyPartInv.getText(),modifyPartMin.getText(),modifyPartMax.getText());
         
         System.out.println(modifyPartName.getText());
         System.out.println(modifyPartPriceCost.getText());
@@ -114,8 +114,9 @@ public class ModifyPartController implements Initializable
         System.out.println(modifyPartMin.getText());
         System.out.println(modifyPartMax.getText());
         
-        
-        if(inputConvResult.equals(false) && invInputCorrect.equals(false) && nullValuesExist.equals(false))
+        if(inputConvResult.equals(false) || 
+                invInputCorrect.equals(false) || 
+                nullValuesExist.equals(false))
         {
             int partId = Integer.parseInt(modifyPartId.getText());
             String partName = modifyPartName.getText();
@@ -128,13 +129,13 @@ public class ModifyPartController implements Initializable
             {
                 String companyName = companyNameTxtFld.getText();
                 Part outsourced = new Outsourced(partId, partName, partPrice, partInv, partMin, partMax, true, companyName);
-                Inventory.modifyPart(outsourced);
+                Part.modifyPart(outsourced);
             }
             else if(inHouseRdBtn.isSelected())
             {
                 int machineId = Integer.parseInt(machineIdTxtFld.getText());
                 Part inHouse = new InHouse(partId, partName, partPrice, partInv, partMin, partMax, false, machineId);
-                Inventory.modifyPart(inHouse);
+                Part.modifyPart(inHouse);
             }
             
             stage = (Stage)((Button)event.getSource()).getScene().getWindow();

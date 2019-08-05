@@ -100,10 +100,46 @@ public class Product
     {
         
     }
-    
-    //check on this to be sure it's correct
-    public ObservableList<Part> getAllAssociatedParts(ObservableList<Part> allAssociatedParts)
+          
+    public static void deleteProduct(Product product)
     {
-        return associatedParts;
+        int index = -1;
+        for(Product currentProduct : Inventory.getAllProducts())
+        {
+            index++;
+            if(currentProduct.getId() == product.getId())
+            {
+                Inventory.getAllProducts().remove(currentProduct);
+            }
+        }
+    }
+
+    public static Product productSearch(int id)
+    {
+        int index = -1;
+        for(Product currentProduct : Inventory.getAllProducts())
+        {
+            index++;
+            if(currentProduct.getId() == id)
+            {
+                return currentProduct;
+            }
+        }
+        return null;
+    }
+    
+    public static ObservableList<Product> filterProducts(int id)
+    {
+        if(!(Inventory.getAllFilteredProducts().isEmpty()))
+            Inventory.getAllFilteredProducts().clear();
+        
+        for(Product currentProduct : Inventory.getAllProducts())
+        {
+            if(currentProduct.getId() == id)
+            {
+                Inventory.getAllFilteredProducts().add(currentProduct);
+            }
+        }
+        return Inventory.getAllFilteredProducts();
     }
 }

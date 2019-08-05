@@ -8,12 +8,18 @@ package Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import Model.*;
+import java.io.IOException;
 import java.util.Optional;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  *
@@ -52,6 +58,11 @@ public class Inventory
     {
         return filteredParts;
     }
+    
+    public static ObservableList<Product> getAllFilteredProducts()
+    {
+        return filteredProducts;
+    }
 
     public static ObservableList<Product> getAllProducts()
     {
@@ -69,33 +80,8 @@ public class Inventory
         allProducts.add(product);
     }
     
-    public static void deletePart(Part part)
-    {
-        int index = -1;
-        for(Part currentPart : Inventory.getAllParts())
-        {
-            index++;
-            if(currentPart.getId() == part.getId())
-            {
-                Inventory.getAllParts().remove(currentPart);
-            }
-        }
-    }
-    
-    public static void modifyPart(Part part)
-    {
-        int index = -1;
-        for(Part currentPart : Inventory.getAllParts())
-        {
-            index++;
-            if(currentPart.getId() == part.getId())
-            {
-                Inventory.getAllParts().set(index, part);
-            }
-        }
-    }
-    
-    public static boolean checkPartUserInput(String id, String name, String price, String inv, String min, String max)
+    //utility methods    
+    public static boolean checkUserInput(String id, String name, String price, String inv, String min, String max)
     {
         Boolean conversionFailed = false;
         Exception error;
@@ -118,7 +104,7 @@ public class Inventory
         catch(Exception e)
         {
             conversionFailed = true;
-            String errorReason = getPartInputErrorType(e.toString());
+            String errorReason = getInputErrorType(e.toString());
             displayInputError(errorReason);            
         }
         
@@ -132,7 +118,7 @@ public class Inventory
         alert.show();
     }
     
-    public static String getPartInputErrorType(String error)
+    public static String getInputErrorType(String error)
     {
         String errorString = null;
         if(error.contains("NumberFormatException"))
@@ -142,25 +128,9 @@ public class Inventory
         
         //need null checker
         
-        
-        
         return errorString;
     }
             
-    //product methods
-    public static void deleteProduct(Product product)
-    {
-        int index = -1;
-        for(Product currentProduct : Inventory.getAllProducts())
-        {
-            index++;
-            if(currentProduct.getId() == product.getId())
-            {
-                Inventory.getAllProducts().remove(currentProduct);
-            }
-        }
-    }
-    
     //misc methods
     public static int confirmOperation(String confirmationType)
     {
@@ -183,5 +153,37 @@ public class Inventory
             test = 1;
         }
         return test;
+    }
+    
+    public static boolean isInvInputCorrect(int partInvMin, int partInvMax)
+    {
+        boolean result = (partInvMax < partInvMin) ||
+                (partInvMin > partInvMax);
+        
+        if(result = true)
+        {
+            displayInputError("The inventory minimum is greater than the maximum. Please fix before that part can be saved.");
+        }
+        System.out.println(partInvMin);
+        System.out.println(partInvMax);
+        
+        return result;
+    }
+    
+    public static boolean nullFieldValueExists(String id, String name, String price, String inv, String min, String max)
+    {
+        boolean result = (id.isEmpty()) || 
+                (name.isEmpty()) || 
+                (price.isEmpty()) || 
+                (inv.isEmpty()) || 
+                (min.isEmpty()) || 
+                (max.isEmpty());
+        
+        if(result == true)
+        {
+            displayInputError("You've left a field empty. Please enter a value and try again.");
+        }
+
+        return result;
     }
 }

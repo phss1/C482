@@ -102,30 +102,30 @@ public abstract class Part
     {
         this.outsourced = outsourced;
     }
-    
-    public static boolean isInvInputCorrect(int partInvMin, int partInvMax)
-    {
-        boolean result = (partInvMax > partInvMin);
-        if(result = true)
-        {
-            Inventory.displayInputError("The inventory minimum is greater than the maximum. Please fix before that part can be saved.");
-        }
-        System.out.println(partInvMin);
-        System.out.println(partInvMax);
         
-        return result;
+    public static void deletePart(Part part)
+    {
+        int index = -1;
+        for(Part currentPart : Inventory.getAllParts())
+        {
+            index++;
+            if(currentPart.getId() == part.getId())
+            {
+                Inventory.getAllParts().remove(currentPart);
+            }
+        }
     }
     
-    public static boolean nullFieldValueExists(String id, String name, String price, String inv, String min, String max)
+    public static void modifyPart(Part part)
     {
-        boolean result = (id.isEmpty()) || (name.isEmpty()) || (price.isEmpty()) || (inv.isEmpty()) || (min.isEmpty()) || (max.isEmpty());
-        
-        if(result = true)
+        int index = -1;
+        for(Part currentPart : Inventory.getAllParts())
         {
-            Inventory.displayInputError("You've left a field empty. Please enter a value and try again.");
-
+            index++;
+            if(currentPart.getId() == part.getId())
+            {
+                Inventory.getAllParts().set(index, part);
+            }
         }
-
-        return result;
     }
 }

@@ -11,6 +11,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Model.*;
+import Controller.*;
+import java.io.IOException;
+import javafx.scene.control.Button;
 
 /**
  *

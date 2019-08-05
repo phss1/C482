@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  *
@@ -26,34 +28,34 @@ public class ModifyProductController implements Initializable
     private TextField prodPartSearchTxtFld;
 
     @FXML
-    private TableView<?> productTbl;
+    private TableView<Part> productPartsTbl;
 
     @FXML
-    private TableColumn<?, ?> prodId;
+    private TableColumn<Part, Integer> prodId;
 
     @FXML
-    private TableColumn<?, ?> prodName;
+    private TableColumn<Part, String> prodName;
 
     @FXML
-    private TableColumn<?, ?> prodInvLvl;
+    private TableColumn<Part, Integer> prodInvLvl;
 
     @FXML
-    private TableColumn<?, ?> prodPriceCost;
+    private TableColumn<Part, Double> prodPriceCost;
 
     @FXML
-    private TableView<?> productPartsTbl;
+    private TableView<Part> productAssociatedPartsTbl;
 
     @FXML
-    private TableColumn<?, ?> partId;
+    private TableColumn<Part, Integer> partId;
 
     @FXML
-    private TableColumn<?, ?> partName;
+    private TableColumn<Part, String> partName;
 
     @FXML
-    private TableColumn<?, ?> partInvLvl;
+    private TableColumn<Part, Integer> partInvLvl;
 
     @FXML
-    private TableColumn<?, ?> partPriceCost;
+    private TableColumn<Part, Double> partPriceCost;
 
     @FXML
     private TextField prodIdTxtFld;
@@ -106,6 +108,20 @@ public class ModifyProductController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        Product filteredProductToModify = Inventory.getAllFilteredProducts().get(0);
+        prodIdTxtFld.setText(Integer.toString(filteredProductToModify.getId()));
+        prodNameTxtFld.setText(filteredProductToModify.getName());
+        prodInvTxtFld.setText(Integer.toString(filteredProductToModify.getStock()));
+        prodPriceTxtFld.setText(Double.toString(filteredProductToModify.getPrice()));
+        prodMinTxtFld.setText(Integer.toString(filteredProductToModify.getMin()));
+        prodMaxTxtFld.setText(Integer.toString(filteredProductToModify.getMax()));
+        
+        productPartsTbl.setItems(Inventory.getAllParts());
+        partId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partInvLvl.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        //line for associated part tbale population
     }
 }
