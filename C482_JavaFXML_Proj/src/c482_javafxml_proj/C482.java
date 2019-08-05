@@ -16,7 +16,7 @@ import Model.*;
  *
  * @author Pete.Heiss
  */
-public class C482_JavaFXML_Proj extends Application {
+public class C482 extends Application {
     
     @Override
     public void start(Stage stage) throws Exception

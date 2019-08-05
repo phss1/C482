@@ -45,7 +45,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="ProductSearchBtn" layoutX="254.0" layoutY="19.0" mnemonicParsing="false" text="Search" />
+            <Button fx:id="ProductSearchBtn" layoutX="254.0" layoutY="19.0" mnemonicParsing="false" onAction="#searchProducts" text="Search" />
             <TextField fx:id="ProductSearchTxtLbl" layoutX="315.0" layoutY="19.0" promptText="Search Text" />
             <TableView fx:id="ProductsTable" layoutX="14.0" layoutY="53.0" prefHeight="177.0" prefWidth="450.0">
                <columns>
@@ -55,11 +55,11 @@
                   <TableColumn fx:id="ProductCostCol" prefWidth="181.0" text="Price/Cost per Unit" />
                </columns>
             </TableView>
-            <Button fx:id="addProductBtn" layoutX="228.0" layoutY="237.0" mnemonicParsing="false" text="Add" />
-            <Button fx:id="modifyProductBtn" layoutX="289.0" layoutY="237.0" mnemonicParsing="false" text="Modify" />
-            <Button fx:id="deleteProductBtn" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" text="Delete" />
+            <Button fx:id="addProductBtn" layoutX="228.0" layoutY="237.0" mnemonicParsing="false" onAction="#addProduct" text="Add" />
+            <Button fx:id="modifyProductBtn" layoutX="289.0" layoutY="237.0" mnemonicParsing="false" onAction="#modifyProduct" text="Modify" />
+            <Button fx:id="deleteProductBtn" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" onAction="#deleteProduct" text="Delete" />
          </children>
       </AnchorPane>
-      <Button fx:id="ExitBtn" layoutX="950.0" layoutY="349.0" mnemonicParsing="false" text="Exit" />
+      <Button fx:id="ExitBtn" layoutX="950.0" layoutY="349.0" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
     </children>
 </AnchorPane>

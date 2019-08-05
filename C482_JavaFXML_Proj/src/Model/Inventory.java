@@ -24,6 +24,23 @@ public class Inventory
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Part> filteredParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
+    private static ObservableList<Product> filteredProducts = FXCollections.observableArrayList();
+
+    public static ObservableList<Part> getFilteredParts() {
+        return filteredParts;
+    }
+
+    public static void setFilteredParts(ObservableList<Part> filteredParts) {
+        Inventory.filteredParts = filteredParts;
+    }
+
+    public static ObservableList<Product> getFilteredProducts() {
+        return filteredProducts;
+    }
+
+    public static void setFilteredProducts(ObservableList<Product> filteredProducts) {
+        Inventory.filteredProducts = filteredProducts;
+    }
 
     //getters
     public static ObservableList<Part> getAllParts()
@@ -50,7 +67,6 @@ public class Inventory
     public static void addProduct(Product product)
     {
         allProducts.add(product);
-        
     }
     
     public static void deletePart(Part part)
@@ -134,7 +150,15 @@ public class Inventory
     //product methods
     public static void deleteProduct(Product product)
     {
-        
+        int index = -1;
+        for(Product currentProduct : Inventory.getAllProducts())
+        {
+            index++;
+            if(currentProduct.getId() == product.getId())
+            {
+                Inventory.getAllProducts().remove(currentProduct);
+            }
+        }
     }
     
     //misc methods

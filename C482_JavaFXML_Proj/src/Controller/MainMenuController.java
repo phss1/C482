@@ -109,6 +109,7 @@ public class MainMenuController implements Initializable
     Stage stage;
     Parent scene;
     
+    //misc methods
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -125,7 +126,13 @@ public class MainMenuController implements Initializable
         ProductCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
     
-    public Part search(int id)
+    public void exitProgram(ActionEvent event)
+    {
+        System.exit(0);
+    }
+    
+    //Part methods
+    public Part partSearch(int id)
     {
         int index = -1;
         for(Part currentPart : Inventory.getAllParts())
@@ -151,19 +158,7 @@ public class MainMenuController implements Initializable
             }
         }
     }
-    
-    public Part selectPart(int id)
-    {
-        for(Part currentPart : Inventory.getAllParts())
-        {
-            if(currentPart.getId() == id)
-            {
-                return currentPart;
-            }
-        }
-        return null;
-    }
-    
+        
     public ObservableList<Part> filterParts(int id)
     {
         if(!(Inventory.getAllFilteredParts().isEmpty()))
@@ -188,20 +183,10 @@ public class MainMenuController implements Initializable
         stage.show();
     }
 
-    public void addProduct(ActionEvent event)
-    {
-        
-    }
-
     public void deletePart(ActionEvent event)
     {
         Part selectedPart = PartsTable.getSelectionModel().getSelectedItem();
         Inventory.deletePart(selectedPart);
-    }
-
-    public void exitProgram(ActionEvent event)
-    {
-        
     }
 
     public void modifyPart(ActionEvent event) throws IOException
@@ -220,7 +205,7 @@ public class MainMenuController implements Initializable
     public void searchParts(ActionEvent event) throws IOException
     {
         int searchId = Integer.parseInt(PartSearchTxtLbl.getText());
-        Part searchedPart = search(searchId);
+        Part searchedPart = partSearch(searchId);
         
         PartsTable.getSelectionModel().select(searchedPart);
         PartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -229,20 +214,59 @@ public class MainMenuController implements Initializable
         PartCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
     
-    void modifyProduct(ActionEvent event)
+    //product methods
+    public void addProduct(ActionEvent event) throws IOException
     {
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View/AddProduct.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+    
+    public void modifyProduct(ActionEvent event) throws IOException
+    {
+        Product selectedTableViewProduct = ProductsTable.getSelectionModel().getSelectedItem();
+        int selectedProductId = selectedTableViewProduct.getId();
         
+        filterParts(selectedProductId);
+                
+        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/View/ModifyProduct.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+
     }
     
     public void deleteProduct(ActionEvent event)
     {
-        
+        Product selectedProduct = ProductsTable.getSelectionModel().getSelectedItem();
+        Inventory.deleteProduct(selectedProduct);
     }
     
-    void searchProducts(ActionEvent event)
+    public void searchProducts(ActionEvent event)
     {
+        int searchId = Integer.parseInt(ProductSearchTxtLbl.getText());
+        Product searchedProduct = productSearch(searchId);
         
+        ProductsTable.getSelectionModel().select(searchedProduct);
+        PartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        PartNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        PartInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        PartCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
     
-    
+    public Product productSearch(int id)
+    {
+        int index = -1;
+        for(Product currentProduct : Inventory.getAllProducts())
+        {
+            index++;
+            if(currentProduct.getId() == id)
+            {
+                return currentProduct;
+            }
+        }
+        return null;
+    }
+
 }
