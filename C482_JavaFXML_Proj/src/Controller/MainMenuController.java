@@ -139,6 +139,7 @@ public class MainMenuController implements Initializable
         alert.setContentText("Are you sure you want to exit the program?");
         Optional<ButtonType> result = alert.showAndWait();
         
+        
         System.exit(0);
     }
     
@@ -155,8 +156,18 @@ public class MainMenuController implements Initializable
 
     public void deletePart(ActionEvent event)
     {
-        Part selectedPart = PartsTable.getSelectionModel().getSelectedItem();
-        Part.deletePart(selectedPart);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Confirm Part Deletion");
+        alert.setContentText("Do you want to delete this part?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.get() == ButtonType.OK)
+        {
+            Part selectedPart = PartsTable.getSelectionModel().getSelectedItem();
+            Part.deletePart(selectedPart);
+        }
     }
 
     public void modifyPart(ActionEvent event) throws IOException
@@ -213,15 +224,19 @@ public class MainMenuController implements Initializable
         try
         {
             Product selectedTableViewProduct = ProductsTable.getSelectionModel().getSelectedItem();
-            int selectedProductId = selectedTableViewProduct.getId();
+            
+            if(!selectedTableViewProduct.equals(null))
+            {
+                int selectedProductId = selectedTableViewProduct.getId();
 
-            Product.filterProducts(selectedProductId);
+                Product.filterProducts(selectedProductId);
 
-            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/View/ModifyProduct.fxml"));
-            stage.setScene(new Scene(scene));
-            stage.show();
-                    }
+                stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/View/ModifyProduct.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+            }
+        }
         catch(Exception e)
         {
             if(e.toString().contains("ava.lang.NullPointerException"))
@@ -238,8 +253,18 @@ public class MainMenuController implements Initializable
     
     public void deleteProduct(ActionEvent event)
     {
-        Product selectedProduct = ProductsTable.getSelectionModel().getSelectedItem();
-        Product.deleteProduct(selectedProduct);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Confirm Part Deletion");
+        alert.setContentText("Do you want to delete this part?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.get() == ButtonType.OK)
+        {
+            Product selectedProduct = ProductsTable.getSelectionModel().getSelectedItem();
+            Product.deleteProduct(selectedProduct);
+        }
     }
     
     public void searchProducts(ActionEvent event)

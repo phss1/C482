@@ -5,11 +5,13 @@
  */
 package Controller;
 
+import static Controller.AddProductController.wasPartAlreadyAdded;
 import Model.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,7 +92,52 @@ public class ModifyProductController implements Initializable
     @FXML
     void onActionAddPartBtn(ActionEvent event)
     {
-        
+        try
+        {
+            Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();
+            int currentPartId = selectedTableViewPart.getId();
+            boolean partAlreadyAdded = wasPartAlreadyAdded(currentPartId);
+            
+            if(!selectedTableViewPart.getName().equals(null) && partAlreadyAdded == false)
+            {   
+                Product.addAssociatedPart(selectedTableViewPart);
+            }
+            else
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Duplicate Part Added");
+                alert.setContentText("You cannot add the same part twice to a product.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }    
+        }
+        catch(Exception e)
+        {
+            if(e.toString().contains("ava.lang.NullPointerException"))
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Selection Error");
+                alert.setContentText("Please select a part from the list before clicking the add part button.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+        }
+    }
+    
+    public static boolean wasPartAlreadyAdded(int id)
+    {
+        int index = -1;
+        for(Part currentPart : Product.getAssociatedParts())
+        {
+            index++;
+            if(currentPart.getId() == id)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     @FXML
@@ -115,7 +162,19 @@ public class ModifyProductController implements Initializable
     @FXML
     void onActionDeleteProdBtn(ActionEvent event)
     {
-        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Confirm Part Deletion");
+        alert.setContentText("Do you want to delete this part from the product?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.get() == ButtonType.OK)
+        {   
+            Part selectedTableViewPart = productAssociatedPartsTbl.getSelectionModel().getSelectedItem();
+            System.out.println(selectedTableViewPart.getId());
+            Product.deleteAssociatedPart(selectedTableViewPart);
+        }
     }
 
     @FXML
@@ -155,6 +214,10 @@ public class ModifyProductController implements Initializable
         partInvLvl.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
         
-        //line for associated part tbale population
+        productAssociatedPartsTbl.setItems(Product.getAssociatedParts());
+        prodId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        prodName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        prodInvLvl.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        prodPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 }

@@ -105,11 +105,28 @@ public class AddProductController implements Initializable
         try
         {
             Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();
-            Product.addAssociatedPart(selectedTableViewPart);
+            int currentPartId = selectedTableViewPart.getId();
+            boolean partAlreadyAdded = wasPartAlreadyAdded(currentPartId);
+            
+            if(!selectedTableViewPart.getName().equals(null) && partAlreadyAdded == false)
+            {   
+                Product.addAssociatedPart(selectedTableViewPart);
+            }
+            else
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Duplicate Part Added");
+                alert.setContentText("You cannot add the same part twice to a product.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+            
+            
         }
         catch(Exception e)
         {
-            if(e.toString().contains("ava.lang.NullPointerException"))
+            if(e.toString().contains("java.lang.NullPointerException"))
             {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.initModality(Modality.NONE);
@@ -119,6 +136,20 @@ public class AddProductController implements Initializable
                 Optional<ButtonType> result = alert.showAndWait();
             }
         }
+    }
+    
+    public static boolean wasPartAlreadyAdded(int id)
+    {
+        int index = -1;
+        for(Part currentPart : Product.getAssociatedParts())
+        {
+            index++;
+            if(currentPart.getId() == id)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     @FXML
@@ -143,10 +174,19 @@ public class AddProductController implements Initializable
     @FXML
     public void onActionDeleteBtn(ActionEvent event)
     {
-        Part selectedTableViewPart = productAssociatedPartsTbl.getSelectionModel().getSelectedItem();
-        
-        System.out.println(selectedTableViewPart.getId());
-        Product.deleteAssociatedPart(selectedTableViewPart);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Confirm Part Deletion");
+        alert.setContentText("Do you want to delete this part from the product?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.get() == ButtonType.OK)
+        {        
+            Part selectedTableViewPart = productAssociatedPartsTbl.getSelectionModel().getSelectedItem();
+            System.out.println(selectedTableViewPart.getId());
+            Product.deleteAssociatedPart(selectedTableViewPart);
+        }
     }
 
     @FXML
