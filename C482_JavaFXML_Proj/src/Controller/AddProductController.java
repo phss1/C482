@@ -192,7 +192,8 @@ public class AddProductController implements Initializable
     public void onActionSaveProductBtn(ActionEvent event)
     {
         Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(prodMinTxtFld.getText()), 
-                Integer.parseInt(prodMaxTxtFld.getText()));
+                Integer.parseInt(prodMaxTxtFld.getText()),
+                Integer.parseInt(prodInvTxtFld.getText()));
         
         Double minProductPrice = minProductValue();
         Double enteredProdTotal = Double.parseDouble(prodPriceTxtFld.getText());
@@ -229,8 +230,9 @@ public class AddProductController implements Initializable
                 alert.initModality(Modality.NONE);
                 alert.setTitle("Input Error");
                 alert.setHeaderText("Input Error");
-                alert.setContentText("You either entered a price that is lower than the sum of the added parts to the product or "
-                        + "the min inventory level is higher than the min inventory level.");
+                alert.setContentText("You either entered a price that is lower than the sum of the added parts to the product,"
+                        + " the min inventory level is higher than the min inventory level, "
+                        + "or the inventory level is not between the min/max item levels..");
                 Optional<ButtonType> result = alert.showAndWait();
             }
         }

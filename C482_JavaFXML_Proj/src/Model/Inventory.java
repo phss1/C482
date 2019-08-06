@@ -103,11 +103,13 @@ public class Inventory
     }
             
     //misc methods 
-    public static boolean isInvInputCorrect(int partInvMin, int partInvMax)
+    public static boolean isInvInputCorrect(int partInvMin, int partInvMax, int enteredInvLvl)
     {
         boolean result = (partInvMin < partInvMax) && 
                 (partInvMin > 0 && 
-                (partInvMax > 0));
+                (partInvMax > 0) &&
+                (enteredInvLvl < partInvMax) &&
+                (enteredInvLvl > partInvMin));
         return result;
     }
 }

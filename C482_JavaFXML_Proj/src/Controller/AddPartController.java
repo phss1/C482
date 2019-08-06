@@ -134,7 +134,8 @@ public class AddPartController implements Initializable
     void savePart(ActionEvent event) throws IOException
     {
         Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(addPartMin.getText()), 
-                Integer.parseInt(addPartMax.getText()));
+                Integer.parseInt(addPartMax.getText()),
+                Integer.parseInt(addPartInv.getText()));
         
         try
         {
@@ -185,7 +186,8 @@ public class AddPartController implements Initializable
                 alert.initModality(Modality.NONE);
                 alert.setTitle("Warning");
                 alert.setHeaderText("Input Error");
-                alert.setContentText("Please make sure the min inventory level is not greater than the max.");
+                alert.setContentText("Please make sure the min inventory level is not greater than the max or "
+                        + "the Inv entry is not between the inventory min/max values.");
                 Optional<ButtonType> result = alert.showAndWait();
             }
         }

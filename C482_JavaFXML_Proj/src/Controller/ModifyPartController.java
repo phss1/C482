@@ -106,7 +106,9 @@ public class ModifyPartController implements Initializable
     @FXML
     public void saveBtn(ActionEvent event) throws IOException
     {
-        Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(modifyPartMin.getText()), Integer.parseInt(modifyPartMax.getText()));
+        Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(modifyPartMin.getText()), 
+                Integer.parseInt(modifyPartMax.getText()),
+                Integer.parseInt(modifyPartInv.getText()));
         
         try
         {
@@ -122,7 +124,8 @@ public class ModifyPartController implements Initializable
                     !companyName.isEmpty() && 
                     invInputCorrect == true)
             {
-                Part outsourced = new Outsourced(partId, partName, partPrice, partInv, partMin, partMax, true, companyName);
+                Part outsourced = new Outsourced(partId, partName, partPrice, 
+                        partInv, partMin, partMax, true, companyName);
                 Part.modifyPart(outsourced);
                 
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -134,7 +137,8 @@ public class ModifyPartController implements Initializable
                     invInputCorrect == true)
             {
                 int machineId = Integer.parseInt(machineIdTxtFld.getText());
-                Part inHouse = new InHouse(partId, partName, partPrice, partInv, partMin, partMax, false, machineId);
+                Part inHouse = new InHouse(partId, partName, partPrice, partInv, 
+                        partMin, partMax, false, machineId);
                 Part.modifyPart(inHouse);
                 
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -157,7 +161,8 @@ public class ModifyPartController implements Initializable
                 alert.initModality(Modality.NONE);
                 alert.setTitle("Warning");
                 alert.setHeaderText("Input Error");
-                alert.setContentText("Please make sure the min inventory level is not greater than the max.");
+                alert.setContentText("Please make sure the min inventory level is not greater than the max or "
+                        + "the Inv entry is not between the inventory min/max values.");
                 Optional<ButtonType> result = alert.showAndWait();
             }
         }
@@ -169,7 +174,8 @@ public class ModifyPartController implements Initializable
                 alert.initModality(Modality.NONE);
                 alert.setTitle("Warning");
                 alert.setHeaderText("Input Error");
-                alert.setContentText("You either entered a non-integer, incorrect Price in format 1.00, or null value. Please correct field input.");
+                alert.setContentText("You either entered a non-integer, incorrect Price in format 1.00, "
+                        + "or null value. Please correct field input.");
                 Optional<ButtonType> result = alert.showAndWait();
             }
         }

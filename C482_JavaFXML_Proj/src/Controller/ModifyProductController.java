@@ -182,7 +182,8 @@ public class ModifyProductController implements Initializable
     void onActionSaveProdBtn(ActionEvent event)
     {
         Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(prodMinTxtFld.getText()), 
-                Integer.parseInt(prodMaxTxtFld.getText()));
+                Integer.parseInt(prodMaxTxtFld.getText()),
+                Integer.parseInt(prodInvTxtFld.getText()));
         
         Double minProductPrice = minProductValue();
         Double enteredProdTotal = Double.parseDouble(prodPriceTxtFld.getText());
@@ -219,9 +220,9 @@ public class ModifyProductController implements Initializable
                 alert.initModality(Modality.NONE);
                 alert.setTitle("Input Error");
                 alert.setHeaderText("Input Error");
-                alert.setContentText("You either entered a price that is lower than the sum of the added parts, "
-                        + "the min inventory level is higher than the min inventory level, "
-                        + "or you did not add parts to the product before saving.");
+                alert.setContentText("You either entered a price that is lower than the sum of the added parts to the product,"
+                        + " the min inventory level is higher than the min inventory level, "
+                        + "or the inventory level is not between the min/max item levels..");
                 Optional<ButtonType> result = alert.showAndWait();
             }
         }
@@ -239,33 +240,6 @@ public class ModifyProductController implements Initializable
             }
         }
     }
-    
-    /*public static int[] findSmalestInvNumber(int[] intArray )
-    {
-        int value[]= new int[5];
-        int temp,i; 
-       // Enhanced for loop
-        for(i=0; i < 5; i++ )
-        {
-            value[i] = data.nextInt();
-            // finding smallest number
-            temp = value[0];
-        }
-        for(i=0; i < 5; i++ )
-        {
-            if(temp < value[i])
-            {
-                continue;
-            }
-            else
-            {
-                temp=value[i];
-                pos=i;
-            }
-        }
-        System.out.println("Smallest number in array is "+temp);
-        return 0;
-    }*/
 
     @FXML
     void onActionSearchPartBtn(ActionEvent event)
