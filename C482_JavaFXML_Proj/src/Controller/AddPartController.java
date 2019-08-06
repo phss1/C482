@@ -133,8 +133,9 @@ public class AddPartController implements Initializable
     @FXML
     void savePart(ActionEvent event) throws IOException
     {
-        Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(addPartMin.getText()), Integer.parseInt(addPartMax.getText()));
-                
+        Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(addPartMin.getText()), 
+                Integer.parseInt(addPartMax.getText()));
+        
         try
         {
             int id = Integer.parseInt(addPartId.getText());
@@ -190,14 +191,14 @@ public class AddPartController implements Initializable
         }
         catch(Exception e)
         {
-            //java.lang.NumberFormatException: For input string: ""
             if(e.toString().contains("input string:"))
             {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.initModality(Modality.NONE);
                 alert.setTitle("Warning");
                 alert.setHeaderText("Input Error");
-                alert.setContentText("You either entered a non-integer, incorrect Price in format 1.00, or null value. Please correct field input.");
+                alert.setContentText("You either entered a non-integer, incorrect Price in format 1.00, or null value. "
+                        + "Please correct field input.");
                 Optional<ButtonType> result = alert.showAndWait();
             }
         }

@@ -228,7 +228,6 @@ public class MainMenuController implements Initializable
             if(!selectedTableViewProduct.equals(null))
             {
                 int selectedProductId = selectedTableViewProduct.getId();
-
                 Product.filterProducts(selectedProductId);
 
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();

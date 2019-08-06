@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -192,7 +193,61 @@ public class AddProductController implements Initializable
     @FXML
     public void onActionSaveProductBtn(ActionEvent event)
     {
+        Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(prodMinTxtFld.getText()), 
+                Integer.parseInt(prodMaxTxtFld.getText()));
         
+        Double minProductPrice = minProductValue();
+        Double enteredProdTotal = Double.parseDouble(prodPriceTxtFld.getText());
+        Boolean isTotalCorrect = (enteredProdTotal >= minProductPrice);
+        try
+        {
+            if(invInputCorrect == true && isTotalCorrect == true)
+            {
+                int prodId = Integer.parseInt(prodIdTxtFld.getText());
+                String productName = prodNameTxtFld.getText();
+                int prodInv = Integer.parseInt(prodInvTxtFld.getText());
+                Double prodPrice = Double.parseDouble(prodPriceTxtFld.getText());
+                int prodMin = Integer.parseInt(prodMinTxtFld.getText());
+                int prodMax = Integer.parseInt(prodMinTxtFld.getText());
+            }
+            else
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Input Error");
+                alert.setHeaderText("Input Error");
+                alert.setContentText("You either entered a price that is lower than the sum of the added parts to the product or "
+                        + "the min inventory level is higher than the min inventory level.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+        }
+        catch(Exception c)
+        {
+            if(c.toString().contains("input string:"))
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Input Error");
+                alert.setContentText("You either entered a non-integer, incorrect Price in format 1.00, or null value. "
+                        + "Please correct field input.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+        }
+        
+    }
+    
+    public static Double minProductValue()
+    {
+        int index = -1;
+        Double totalPrice = 0.00;
+        for(Part currentPart : Product.getAssociatedParts())
+        {
+            index++;
+            totalPrice += currentPart.getPrice();
+        }
+        
+        return totalPrice;
     }
 
     @FXML
