@@ -20,6 +20,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import Model.*;
+import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Modality;
 
 /**
  *
@@ -76,9 +80,14 @@ public class AddPartController implements Initializable
     @FXML
     void cancel(ActionEvent event) throws IOException
     {
-        int result = Inventory.confirmOperation("cancel");
-        
-        if(1 == result)
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Confirm Cancel");
+        alert.setContentText("Do you want to cancel?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.get() == ButtonType.OK)
         {
             addPartId.clear();
             addPartName.clear();
@@ -124,30 +133,76 @@ public class AddPartController implements Initializable
     @FXML
     void savePart(ActionEvent event) throws IOException
     {
-        int id = Integer.parseInt(addPartId.getText());
-        String name = addPartName.getText();
-        Double price = Double.parseDouble(addPartPriceCost.getText());
-        int stock = Integer.parseInt(addPartInv.getText());
-        int min = Integer.parseInt(addPartMin.getText());
-        int max = Integer.parseInt(addPartMax.getText());
+        Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(addPartMin.getText()), Integer.parseInt(addPartMax.getText()));
         
-        if(outsourcedRdBtn.isSelected())
+        System.out.println(invInputCorrect);
+        
+        try
         {
+            int id = Integer.parseInt(addPartId.getText());
+            String name = addPartName.getText();
+            Double price = Double.parseDouble(addPartPriceCost.getText());
+            int stock = Integer.parseInt(addPartInv.getText());
+            int min = Integer.parseInt(addPartMin.getText());
+            int max = Integer.parseInt(addPartMax.getText());
             String companyName = companyNameTxtFld.getText();
-            Part outsourced = new Outsourced(id, name, price, stock, min, max, true, companyName);
-            Inventory.addPart(outsourced);
+
+            if(outsourcedRdBtn.isSelected() && 
+                    !companyName.isEmpty() && 
+                    invInputCorrect == true)
+            {
+                Part outsourced = new Outsourced(id, name, price, stock, min, max, true, companyName);
+                Inventory.addPart(outsourced);
+                
+                stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+            }
+            else if(inHouseRdBtn.isSelected() && 
+                    invInputCorrect == true)
+            {
+                int machineId = Integer.parseInt(machineIdTxtFld.getText());
+                Part inHouse = new InHouse(id, name, price, stock, min, max, false, machineId);
+                Inventory.addPart(inHouse);
+                
+                stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+            }
+            else if(companyName.isEmpty() && outsourcedRdBtn.isSelected())
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Input Error");
+                alert.setContentText("Please make sure a value for Company Name field is entered .");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+            else if(invInputCorrect == false)
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Input Error");
+                alert.setContentText("Please make sure the min inventory level is not greater than the max.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
         }
-        else if(inHouseRdBtn.isSelected())
+        catch(Exception e)
         {
-            int machineId = Integer.parseInt(machineIdTxtFld.getText());
-            Part inHouse = new InHouse(id, name, price, stock, min, max, false, machineId);
-            Inventory.addPart(inHouse);
+            //java.lang.NumberFormatException: For input string: ""
+            if(e.toString().contains("input string:"))
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Input Error");
+                alert.setContentText("You either entered a non-integer, incorrect Price in format 1.00, or null value. Please correct field input.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
         }
-        
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
     }
     
     @Override

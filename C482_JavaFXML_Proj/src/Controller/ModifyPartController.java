@@ -8,6 +8,7 @@ import Model.*;
 import Model.Part;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +25,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Region;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -104,54 +106,87 @@ public class ModifyPartController implements Initializable
     @FXML
     public void saveBtn(ActionEvent event) throws IOException
     {
-        Boolean inputConvResult = Inventory.checkUserInput(modifyPartId.getText(),modifyPartName.getText(),modifyPartPriceCost.getText(),modifyPartInv.getText(),modifyPartMin.getText(),modifyPartMax.getText());
         Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(modifyPartMin.getText()), Integer.parseInt(modifyPartMax.getText()));
-        Boolean nullValuesExist = Inventory.nullFieldValueExists(modifyPartId.getText(),modifyPartName.getText(),modifyPartPriceCost.getText(),modifyPartInv.getText(),modifyPartMin.getText(),modifyPartMax.getText());
         
-        System.out.println(modifyPartName.getText());
-        System.out.println(modifyPartPriceCost.getText());
-        System.out.println(modifyPartInv.getText());
-        System.out.println(modifyPartMin.getText());
-        System.out.println(modifyPartMax.getText());
-        
-        if(inputConvResult.equals(false) || 
-                invInputCorrect.equals(false) || 
-                nullValuesExist.equals(false))
+        try
         {
             int partId = Integer.parseInt(modifyPartId.getText());
             String partName = modifyPartName.getText();
             int partInv = Integer.parseInt(modifyPartInv.getText());
             Double partPrice = Double.parseDouble(modifyPartPriceCost.getText());
             int partMax = Integer.parseInt(modifyPartMax.getText());
-            int partMin = Integer.parseInt(modifyPartMin.getText());  
-        
-            if(outsourcedRdBtn.isSelected())
+            int partMin = Integer.parseInt(modifyPartMin.getText());
+            String companyName = companyNameTxtFld.getText();
+
+            if(outsourcedRdBtn.isSelected() && 
+                    !companyName.isEmpty() && 
+                    invInputCorrect == true)
             {
-                String companyName = companyNameTxtFld.getText();
                 Part outsourced = new Outsourced(partId, partName, partPrice, partInv, partMin, partMax, true, companyName);
                 Part.modifyPart(outsourced);
+                
+                stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
             }
-            else if(inHouseRdBtn.isSelected())
+            else if(inHouseRdBtn.isSelected() && 
+                    invInputCorrect == true)
             {
                 int machineId = Integer.parseInt(machineIdTxtFld.getText());
                 Part inHouse = new InHouse(partId, partName, partPrice, partInv, partMin, partMax, false, machineId);
                 Part.modifyPart(inHouse);
+                
+                stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
             }
-            
-            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
-            stage.setScene(new Scene(scene));
-            stage.show();
+            else if(companyName.isEmpty() && outsourcedRdBtn.isSelected())
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Input Error");
+                alert.setContentText("Please make sure a value for Company Name field is entered .");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+            else if(invInputCorrect == false)
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Input Error");
+                alert.setContentText("Please make sure the min inventory level is not greater than the max.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+        }
+        catch(Exception e)
+        {
+            if(e.toString().contains("input string:"))
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Input Error");
+                alert.setContentText("You either entered a non-integer, incorrect Price in format 1.00, or null value. Please correct field input.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
         }
     }
     
     @FXML
     public void cancelBtn(ActionEvent event) throws IOException
     {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Confirm Cancel");
+        alert.setContentText("Do you want to cancel?");
+        Optional<ButtonType> result = alert.showAndWait();
+
         
-        int result = Inventory.confirmOperation("cancel");
-        
-        if(1 == result)
+        if(result.get() == ButtonType.OK)
         {
             modifyPartId.clear();
             modifyPartName.clear();
@@ -173,7 +208,7 @@ public class ModifyPartController implements Initializable
             scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
-            }
+        }
     }
     
     @Override
@@ -195,7 +230,6 @@ public class ModifyPartController implements Initializable
             companyNameTxtFld.setVisible(true);
             
             outsourcedRdBtn.setSelected(true);
-            inHouseRdBtn.setDisable(true);
         }
         else
         {
@@ -205,7 +239,6 @@ public class ModifyPartController implements Initializable
             companyNameTxtFld.setVisible(true);
             
             inHouseRdBtn.setSelected(true);
-            outsourcedRdBtn.setDisable(true);
         }
     }
 }

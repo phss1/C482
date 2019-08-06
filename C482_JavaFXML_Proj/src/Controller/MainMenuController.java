@@ -9,6 +9,7 @@ import Model.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,13 +19,16 @@ import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -128,6 +132,13 @@ public class MainMenuController implements Initializable
     
     public void exitProgram(ActionEvent event)
     {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Confirm Exit");
+        alert.setContentText("Are you sure you want to exit the program?");
+        Optional<ButtonType> result = alert.showAndWait();
+        
         System.exit(0);
     }
     
@@ -191,15 +202,30 @@ public class MainMenuController implements Initializable
 
     public void modifyPart(ActionEvent event) throws IOException
     {
-        Part selectedTableViewPart = PartsTable.getSelectionModel().getSelectedItem();
-        int selectedPartId = selectedTableViewPart.getId();
-        
-        filterParts(selectedPartId);
-                
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/ModifyPart.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        try
+        {
+            Part selectedTableViewPart = PartsTable.getSelectionModel().getSelectedItem();
+            int selectedPartId = selectedTableViewPart.getId();
+
+            filterParts(selectedPartId);
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/View/ModifyPart.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
+        catch(Exception e)
+        {
+            if(e.toString().contains("ava.lang.NullPointerException"))
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Selection Error");
+                alert.setContentText("Please select a part from the list before clicking modify button.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+        }
     }
 
     public void searchParts(ActionEvent event) throws IOException
@@ -225,15 +251,30 @@ public class MainMenuController implements Initializable
     
     public void modifyProduct(ActionEvent event) throws IOException
     {
-        Product selectedTableViewProduct = ProductsTable.getSelectionModel().getSelectedItem();
-        int selectedProductId = selectedTableViewProduct.getId();
-        
-        Product.filterProducts(selectedProductId);
-        
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/ModifyProduct.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        try
+        {
+            Product selectedTableViewProduct = ProductsTable.getSelectionModel().getSelectedItem();
+            int selectedProductId = selectedTableViewProduct.getId();
+
+            Product.filterProducts(selectedProductId);
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/View/ModifyProduct.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+                    }
+        catch(Exception e)
+        {
+            if(e.toString().contains("ava.lang.NullPointerException"))
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Selection Error");
+                alert.setContentText("Please select a part from the list before clicking modify button.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+        }
     }
     
     public void deleteProduct(ActionEvent event)
