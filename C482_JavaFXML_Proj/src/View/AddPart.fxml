@@ -22,7 +22,7 @@
             <ToggleGroup fx:id="status" />
          </toggleGroup></RadioButton>
       <RadioButton fx:id="outsourcedRdBtn" layoutX="213.0" layoutY="24.0" mnemonicParsing="false" onAction="#outSourced" text="Outsourced" toggleGroup="$status" />
-      <TextField fx:id="addPartId" layoutX="110.0" layoutY="52.0" promptText="ID" />
+      <TextField fx:id="addPartId" disable="true" layoutX="110.0" layoutY="52.0" promptText="ID" />
       <TextField fx:id="addPartName" layoutX="110.0" layoutY="91.0" promptText="Part Name" />
       <TextField fx:id="addPartInv" layoutX="110.0" layoutY="125.0" promptText="Inv" />
       <TextField fx:id="addPartMax" layoutX="246.0" layoutY="201.0" prefHeight="25.0" prefWidth="69.0" promptText="Max" />

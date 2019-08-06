@@ -211,7 +211,7 @@ public class AddPartController implements Initializable
         companyNameLbl.setVisible(false);
         companyNameTxtFld.setVisible(false);
         
-        //need if statement to check for part type if outsourced or inhouse
-        
+        int newPartId = Inventory.getPartIdCnt();
+        addPartId.setText(Integer.toString(newPartId));
     }
 }

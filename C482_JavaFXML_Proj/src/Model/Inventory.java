@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import Model.*;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,6 +32,19 @@ public class Inventory
     private static ObservableList<Part> filteredParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
     private static ObservableList<Product> filteredProducts = FXCollections.observableArrayList();
+    private static int partIdCnt = 0;
+    private static int prodIdCnt = 0;
+    
+    public static int getProdIdCnt()
+    {
+        prodIdCnt++;
+        return prodIdCnt;
+    }
+    
+    public static int getPartIdCnt() {
+        partIdCnt++;
+        return partIdCnt;
+    }
 
     public static ObservableList<Part> getFilteredParts() {
         return filteredParts;
@@ -95,5 +109,5 @@ public class Inventory
                 (partInvMin > 0 && 
                 (partInvMax > 0));
         return result;
-    }   
+    }
 }

@@ -104,7 +104,8 @@ public class AddProductController implements Initializable
     {
         try
         {
-            
+            Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();
+            Product.addAssociatedPart(selectedTableViewPart);
         }
         catch(Exception e)
         {
@@ -142,7 +143,10 @@ public class AddProductController implements Initializable
     @FXML
     public void onActionDeleteBtn(ActionEvent event)
     {
+        Part selectedTableViewPart = productAssociatedPartsTbl.getSelectionModel().getSelectedItem();
         
+        System.out.println(selectedTableViewPart.getId());
+        Product.deleteAssociatedPart(selectedTableViewPart);
     }
 
     @FXML
@@ -173,6 +177,13 @@ public class AddProductController implements Initializable
         partInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
         
-        //line for associated products table 
+        productAssociatedPartsTbl.setItems(Product.getAssociatedParts());
+        prodPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        prodPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productInvLvl.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        prodPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        int newPartId = Inventory.getPartIdCnt();
+        prodIdTxtFld.setText(Integer.toString(newPartId));
     }
 }

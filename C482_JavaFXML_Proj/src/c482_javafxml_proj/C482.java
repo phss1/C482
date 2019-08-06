@@ -33,8 +33,10 @@ public class C482 extends Application {
     public static void main(String[] args)
     {
         //add in house test data
-        InHouse a1 = new InHouse(1,"Part A1",2.99,10,5,108,false,100);
-        InHouse a2 = new InHouse(2,"Part A2",3.99,11,6,109,false,101);
+        int newPartId1 = Inventory.getPartIdCnt();
+        InHouse a1 = new InHouse(newPartId1,"Part A1",2.99,10,5,108,false,100);
+        int newPartId2 = Inventory.getPartIdCnt();
+        InHouse a2 = new InHouse(newPartId2,"Part A2",3.99,11,6,109,false,101);
         
         //System.out.println(Inventory.getAllParts());
         
@@ -42,15 +44,21 @@ public class C482 extends Application {
         Inventory.addPart(a2);
         
         //add outsourced part test data
-        Part o1 = new Outsourced(3,"Part O1",2.99,10,5,108,true,"Company1");
-        Part o2 = new Outsourced(4,"Part O2",3.99,11,6,109,true,"Company2");
+        int newPartId3 = Inventory.getPartIdCnt();
+        Part o1 = new Outsourced(newPartId3,"Part O1",2.99,10,5,108,true,"Company1");
+        int newPartId4 = Inventory.getPartIdCnt();
+        Part o2 = new Outsourced(newPartId4,"Part O2",3.99,11,6,109,true,"Company2");
         Inventory.addPart(o1);
         Inventory.addPart(o2);
         
-        Product p1 = new Product(1, "P1", 1.00, 1, 1, 4);
-        Product p2 = new Product(2, "P1", 2.00, 2, 2, 5);
-        Product p3 = new Product(3, "P1", 3.00, 3, 3, 6);
-        Product p4 = new Product(4, "P1", 4.00, 4, 4, 7);
+        int newprodId1 = Inventory.getProdIdCnt();
+        Product p1 = new Product(newprodId1, "P1", 1.00, 1, 1, 4);
+        int newprodId2 = Inventory.getProdIdCnt();
+        Product p2 = new Product(newprodId2, "P1", 2.00, 2, 2, 5);
+        int newprodId3 = Inventory.getProdIdCnt();
+        Product p3 = new Product(newprodId3, "P1", 3.00, 3, 3, 6);
+        int newprodId4 = Inventory.getProdIdCnt();
+        Product p4 = new Product(newprodId4, "P1", 4.00, 4, 4, 7);
         Inventory.addProduct(p1);
         Inventory.addProduct(p2);
         Inventory.addProduct(p3);
