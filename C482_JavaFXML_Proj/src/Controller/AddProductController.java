@@ -7,17 +7,31 @@ package Controller;
 
 import Model.Inventory;
 import Model.Part;
+import Model.Product;
+import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Modality;
 
 /**
  *
@@ -25,6 +39,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class AddProductController implements Initializable
 {
+    Stage stage;
+    Parent scene;
+    
     @FXML
     private Label label;
 
@@ -83,33 +100,68 @@ public class AddProductController implements Initializable
     private TextField prodMinTxtFld;
 
     @FXML
-    void onActionAddPartBtn(ActionEvent event)
+    public void onActionAddPartBtn(ActionEvent event)
     {
-
+        try
+        {
+            
+        }
+        catch(Exception e)
+        {
+            if(e.toString().contains("ava.lang.NullPointerException"))
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Selection Error");
+                alert.setContentText("Please select a part from the list before clicking the add part button.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+        }
     }
 
     @FXML
-    void onActionCancelBtn(ActionEvent event)
+    public void onActionCancelBtn(ActionEvent event) throws IOException
     {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText("Confirm Cancel");
+        alert.setContentText("Do you want to cancel?");
+        Optional<ButtonType> result = alert.showAndWait();
 
+        if(result.get() == ButtonType.OK)
+        {
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     @FXML
-    void onActionDeleteBtn(ActionEvent event)
+    public void onActionDeleteBtn(ActionEvent event)
     {
-
+        
     }
 
     @FXML
-    void onActionSaveProductBtn(ActionEvent event)
+    public void onActionSaveProductBtn(ActionEvent event)
     {
-
+        
     }
 
     @FXML
-    void onActionSearchPartBtn(ActionEvent event)
+    public void onActionSearchPartBtn(ActionEvent event)
     {
-
+        int searchId = Integer.parseInt(prodPartSearchTxtFld.getText());
+        Part searchedPart = Part.partSearch(searchId);
+        
+        productPartsTbl.getSelectionModel().select(searchedPart);
+        partId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
     
     @Override

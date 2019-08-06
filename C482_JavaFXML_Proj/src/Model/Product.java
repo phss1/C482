@@ -91,6 +91,17 @@ public class Product
         this.max = max;
     }
     
+    public ObservableList<Part> getAssociatedParts()
+    {
+        return associatedParts;
+    }
+
+    public void setAssociatedParts(ObservableList<Part> associatedParts)
+    {
+        this.associatedParts = associatedParts;
+    }
+
+    
     public void addAssociatedPart(Part part)
     {
         

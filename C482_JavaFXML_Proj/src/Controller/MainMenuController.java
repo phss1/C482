@@ -143,47 +143,6 @@ public class MainMenuController implements Initializable
     }
     
     //Part methods
-    public Part partSearch(int id)
-    {
-        int index = -1;
-        for(Part currentPart : Inventory.getAllParts())
-        {
-            index++;
-            if(currentPart.getId() == id)
-            {
-                return currentPart;
-            }
-        }
-        return null;
-    }
-    
-    public void modifySelectedPart(int id, Part part)
-    {
-        int index = -1;
-        for(Part currentPart : Inventory.getAllParts())
-        {
-            index++;
-            if(currentPart.getId() == id)
-            {
-                Inventory.getAllParts().set(index, currentPart);
-            }
-        }
-    }
-        
-    public ObservableList<Part> filterParts(int id)
-    {
-        if(!(Inventory.getAllFilteredParts().isEmpty()))
-            Inventory.getAllFilteredParts().clear();
-        
-        for(Part currentPart : Inventory.getAllParts())
-        {
-            if(currentPart.getId() == id)
-            {
-                Inventory.getAllFilteredParts().add(currentPart);
-            }
-        }
-        return Inventory.getAllFilteredParts();
-    }
     
     @FXML
     public void addPart(ActionEvent event) throws IOException
@@ -207,7 +166,7 @@ public class MainMenuController implements Initializable
             Part selectedTableViewPart = PartsTable.getSelectionModel().getSelectedItem();
             int selectedPartId = selectedTableViewPart.getId();
 
-            filterParts(selectedPartId);
+            Part.filterParts(selectedPartId);
 
             stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/View/ModifyPart.fxml"));
@@ -231,7 +190,7 @@ public class MainMenuController implements Initializable
     public void searchParts(ActionEvent event) throws IOException
     {
         int searchId = Integer.parseInt(PartSearchTxtLbl.getText());
-        Part searchedPart = partSearch(searchId);
+        Part searchedPart = Part.partSearch(searchId);
         
         PartsTable.getSelectionModel().select(searchedPart);
         PartIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -294,14 +253,4 @@ public class MainMenuController implements Initializable
         PartInvLvlCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         PartCostCol.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
-    
-    /*  
-    public void changeControllerScreen(String screenName) throws IOException
-    {        
-        stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/View/" + screenName + ".fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
-    }
-    */
 }

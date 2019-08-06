@@ -5,6 +5,7 @@
  */
 package Model;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
@@ -128,4 +129,47 @@ public abstract class Part
             }
         }
     }
+    
+    public static Part partSearch(int id)
+    {
+        int index = -1;
+        for(Part currentPart : Inventory.getAllParts())
+        {
+            index++;
+            if(currentPart.getId() == id)
+            {
+                return currentPart;
+            }
+        }
+        return null;
+    }
+    
+    public static void modifySelectedPart(int id, Part part)
+    {
+        int index = -1;
+        for(Part currentPart : Inventory.getAllParts())
+        {
+            index++;
+            if(currentPart.getId() == id)
+            {
+                Inventory.getAllParts().set(index, currentPart);
+            }
+        }
+    }
+        
+    public static ObservableList<Part> filterParts(int id)
+    {
+        if(!(Inventory.getAllFilteredParts().isEmpty()))
+            Inventory.getAllFilteredParts().clear();
+        
+        for(Part currentPart : Inventory.getAllParts())
+        {
+            if(currentPart.getId() == id)
+            {
+                Inventory.getAllFilteredParts().add(currentPart);
+            }
+        }
+        return Inventory.getAllFilteredParts();
+    }
+
 }

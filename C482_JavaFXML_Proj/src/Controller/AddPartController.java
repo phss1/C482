@@ -134,9 +134,7 @@ public class AddPartController implements Initializable
     void savePart(ActionEvent event) throws IOException
     {
         Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(addPartMin.getText()), Integer.parseInt(addPartMax.getText()));
-        
-        System.out.println(invInputCorrect);
-        
+                
         try
         {
             int id = Integer.parseInt(addPartId.getText());
