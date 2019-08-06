@@ -122,8 +122,6 @@ public class AddProductController implements Initializable
                 alert.setContentText("You cannot add the same part twice to a product.");
                 Optional<ButtonType> result = alert.showAndWait();
             }
-            
-            
         }
         catch(Exception e)
         {
@@ -199,9 +197,16 @@ public class AddProductController implements Initializable
         Double minProductPrice = minProductValue();
         Double enteredProdTotal = Double.parseDouble(prodPriceTxtFld.getText());
         Boolean isTotalCorrect = (enteredProdTotal >= minProductPrice);
+        
+        ObservableList<Part> currentProdAssociatedParts = productAssociatedPartsTbl.getItems();
+        int associatedPartsCount = currentProdAssociatedParts.size();
+        Boolean productHasParts = (associatedPartsCount >= 1);
+        
         try
         {
-            if(invInputCorrect == true && isTotalCorrect == true)
+            if(invInputCorrect == true && 
+                    isTotalCorrect == true && 
+                    productHasParts == true)
             {
                 int prodId = Integer.parseInt(prodIdTxtFld.getText());
                 String productName = prodNameTxtFld.getText();
@@ -209,6 +214,14 @@ public class AddProductController implements Initializable
                 Double prodPrice = Double.parseDouble(prodPriceTxtFld.getText());
                 int prodMin = Integer.parseInt(prodMinTxtFld.getText());
                 int prodMax = Integer.parseInt(prodMinTxtFld.getText());
+                
+                Product product = new Product(prodId,productName,prodPrice,prodInv,prodMin,prodMax);
+                Inventory.addProduct(product);
+                
+                stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
             }
             else
             {
@@ -234,7 +247,6 @@ public class AddProductController implements Initializable
                 Optional<ButtonType> result = alert.showAndWait();
             }
         }
-        
     }
     
     public static Double minProductValue()
@@ -280,5 +292,6 @@ public class AddProductController implements Initializable
         
         int newPartId = Inventory.getPartIdCnt();
         prodIdTxtFld.setText(Integer.toString(newPartId));
+        prodInvTxtFld.setText("0");
     }
 }

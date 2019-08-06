@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import static Controller.AddProductController.minProductValue;
 import static Controller.AddProductController.wasPartAlreadyAdded;
 import Model.*;
 import java.io.IOException;
@@ -180,8 +181,91 @@ public class ModifyProductController implements Initializable
     @FXML
     void onActionSaveProdBtn(ActionEvent event)
     {
+        Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(prodMinTxtFld.getText()), 
+                Integer.parseInt(prodMaxTxtFld.getText()));
         
+        Double minProductPrice = minProductValue();
+        Double enteredProdTotal = Double.parseDouble(prodPriceTxtFld.getText());
+        Boolean isTotalCorrect = (enteredProdTotal >= minProductPrice);
+        
+        ObservableList<Part> currentProdAssociatedParts = productAssociatedPartsTbl.getItems();
+        int associatedPartsCount = currentProdAssociatedParts.size();
+        Boolean productHasParts = (associatedPartsCount >= 1);
+        
+        try
+        {
+            if(invInputCorrect == true && 
+                    isTotalCorrect == true && 
+                    productHasParts == true)
+            {
+                int prodId = Integer.parseInt(prodIdTxtFld.getText());
+                String productName = prodNameTxtFld.getText();
+                int prodInv = Integer.parseInt(prodInvTxtFld.getText());
+                Double prodPrice = Double.parseDouble(prodPriceTxtFld.getText());
+                int prodMin = Integer.parseInt(prodMinTxtFld.getText());
+                int prodMax = Integer.parseInt(prodMinTxtFld.getText());
+                
+                Product product = new Product(prodId,productName,prodPrice,prodInv,prodMin,prodMax);
+                Inventory.addProduct(product);
+                
+                stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+                scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+            }
+            else
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Input Error");
+                alert.setHeaderText("Input Error");
+                alert.setContentText("You either entered a price that is lower than the sum of the added parts, "
+                        + "the min inventory level is higher than the min inventory level, "
+                        + "or you did not add parts to the product before saving.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+        }
+        catch(Exception c)
+        {
+            if(c.toString().contains("input string:"))
+            {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.initModality(Modality.NONE);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Input Error");
+                alert.setContentText("You either entered a non-integer, incorrect Price in format 1.00, or null value. "
+                        + "Please correct field input.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+        }
     }
+    
+    /*public static int[] findSmalestInvNumber(int[] intArray )
+    {
+        int value[]= new int[5];
+        int temp,i; 
+       // Enhanced for loop
+        for(i=0; i < 5; i++ )
+        {
+            value[i] = data.nextInt();
+            // finding smallest number
+            temp = value[0];
+        }
+        for(i=0; i < 5; i++ )
+        {
+            if(temp < value[i])
+            {
+                continue;
+            }
+            else
+            {
+                temp=value[i];
+                pos=i;
+            }
+        }
+        System.out.println("Smallest number in array is "+temp);
+        return 0;
+    }*/
 
     @FXML
     void onActionSearchPartBtn(ActionEvent event)
@@ -219,5 +303,8 @@ public class ModifyProductController implements Initializable
         prodName.setCellValueFactory(new PropertyValueFactory<>("name"));
         prodInvLvl.setCellValueFactory(new PropertyValueFactory<>("stock"));
         prodPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
+        int newPartId = Inventory.getPartIdCnt();
+        prodIdTxtFld.setText(Integer.toString(newPartId));
     }
 }
