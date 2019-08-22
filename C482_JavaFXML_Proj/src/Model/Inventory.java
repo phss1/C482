@@ -108,8 +108,8 @@ public class Inventory
         boolean result = (partInvMin < partInvMax) && 
                 (partInvMin > 0 && 
                 (partInvMax > 0) &&
-                (enteredInvLvl < partInvMax) &&
-                (enteredInvLvl > partInvMin));
+                (enteredInvLvl <= partInvMax) &&
+                (enteredInvLvl >= partInvMin));
         return result;
     }
 }

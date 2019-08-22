@@ -220,16 +220,19 @@ public class ModifyPartController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        Part filteredPartToModify = Inventory.getAllFilteredParts().get(0);
-        modifyPartId.setText(Integer.toString(filteredPartToModify.getId()));
-        modifyPartName.setText(filteredPartToModify.getName());
-        modifyPartInv.setText(Integer.toString(filteredPartToModify.getStock()));
-        modifyPartPriceCost.setText(Double.toString(filteredPartToModify.getPrice()));
-        modifyPartMax.setText(Integer.toString(filteredPartToModify.getMax()));
-        modifyPartMin.setText(Integer.toString(filteredPartToModify.getMin()));
+        Boolean filteredPartToModify = Inventory.getAllFilteredParts().get(0).getOutsourced();
         
-        if(filteredPartToModify.getOutsourced() == true)
+        if(filteredPartToModify == true)
         {
+            Outsourced outSourcedPartToModify = (Model.Outsourced)Inventory.getAllFilteredParts().get(0);
+            modifyPartId.setText(Integer.toString(outSourcedPartToModify.getId()));
+            modifyPartName.setText(outSourcedPartToModify.getName());
+            modifyPartInv.setText(Integer.toString(outSourcedPartToModify.getStock()));
+            modifyPartPriceCost.setText(Double.toString(outSourcedPartToModify.getPrice()));
+            modifyPartMax.setText(Integer.toString(outSourcedPartToModify.getMax()));
+            modifyPartMin.setText(Integer.toString(outSourcedPartToModify.getMin()));
+            companyNameTxtFld.setText(outSourcedPartToModify.getCompanyName());
+            
             machineIdLbl.setVisible(false);
             machineIdTxtFld.setVisible(false);
             companyNameLbl.setVisible(true);
@@ -239,10 +242,19 @@ public class ModifyPartController implements Initializable
         }
         else
         {
-            machineIdLbl.setVisible(false);
-            machineIdTxtFld.setVisible(false);
-            companyNameLbl.setVisible(true);
-            companyNameTxtFld.setVisible(true);
+            InHouse inHousePartToModify = (Model.InHouse)Inventory.getAllFilteredParts().get(0);
+            modifyPartId.setText(Integer.toString(inHousePartToModify.getId()));
+            modifyPartName.setText(inHousePartToModify.getName());
+            modifyPartInv.setText(Integer.toString(inHousePartToModify.getStock()));
+            modifyPartPriceCost.setText(Double.toString(inHousePartToModify.getPrice()));
+            modifyPartMax.setText(Integer.toString(inHousePartToModify.getMax()));
+            modifyPartMin.setText(Integer.toString(inHousePartToModify.getMin()));
+            machineIdTxtFld.setText(Integer.toString(inHousePartToModify.getMachineId()));
+            
+            machineIdLbl.setVisible(true);
+            machineIdTxtFld.setVisible(true);
+            companyNameLbl.setVisible(false);
+            companyNameTxtFld.setVisible(false);
             
             inHouseRdBtn.setSelected(true);
         }

@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import Model.*;
 import Controller.*;
 import java.io.IOException;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 
 /**
@@ -34,9 +35,9 @@ public class C482 extends Application {
     {
         //add in house test data
         int newPartId1 = Inventory.getPartIdCnt();
-        InHouse a1 = new InHouse(newPartId1,"Part A1",2.99,10,5,108,false,100);
+        InHouse a1 = new InHouse(newPartId1,"InHouse1",2.99,10,5,108,false,100);
         int newPartId2 = Inventory.getPartIdCnt();
-        InHouse a2 = new InHouse(newPartId2,"Part A2",3.99,11,6,109,false,101);
+        InHouse a2 = new InHouse(newPartId2,"InHouse2",3.99,11,6,109,false,101);
         
         //System.out.println(Inventory.getAllParts());
         
@@ -45,20 +46,22 @@ public class C482 extends Application {
         
         //add outsourced part test data
         int newPartId3 = Inventory.getPartIdCnt();
-        Part o1 = new Outsourced(newPartId3,"Part O1",2.99,10,5,108,true,"Company1");
+        Outsourced o1 = new Outsourced(newPartId3,"Oustourced1",4.99,12,6,110,true,"CompanyTest1");
         int newPartId4 = Inventory.getPartIdCnt();
-        Part o2 = new Outsourced(newPartId4,"Part O2",3.99,11,6,109,true,"Company2");
+        Outsourced o2 = new Outsourced(newPartId4,"Outsourced2",5.99,13,7,111,true,"CompanyTest2");
         Inventory.addPart(o1);
         Inventory.addPart(o2);
         
+        ObservableList<Part> associatedParts = null;
+        
         int newprodId1 = Inventory.getProdIdCnt();
-        Product p1 = new Product(newprodId1, "P1", 1.00, 1, 1, 4);
+        Product p1 = new Product(associatedParts, newprodId1, "P1", 1.00, 1, 1, 4);
         int newprodId2 = Inventory.getProdIdCnt();
-        Product p2 = new Product(newprodId2, "P1", 2.00, 2, 2, 5);
+        Product p2 = new Product(associatedParts, newprodId2, "P2", 2.00, 2, 2, 5);
         int newprodId3 = Inventory.getProdIdCnt();
-        Product p3 = new Product(newprodId3, "P1", 3.00, 3, 3, 6);
+        Product p3 = new Product(associatedParts, newprodId3, "P3", 3.00, 3, 3, 6);
         int newprodId4 = Inventory.getProdIdCnt();
-        Product p4 = new Product(newprodId4, "P1", 4.00, 4, 4, 7);
+        Product p4 = new Product(associatedParts, newprodId4, "P4", 4.00, 4, 4, 7);
         Inventory.addProduct(p1);
         Inventory.addProduct(p2);
         Inventory.addProduct(p3);

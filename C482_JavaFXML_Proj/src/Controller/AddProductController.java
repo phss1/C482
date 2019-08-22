@@ -109,7 +109,7 @@ public class AddProductController implements Initializable
             int currentPartId = selectedTableViewPart.getId();
             boolean partAlreadyAdded = wasPartAlreadyAdded(currentPartId);
             
-            if(!selectedTableViewPart.getName().equals(null) && partAlreadyAdded == false)
+            if(!selectedTableViewPart.getName().equals(null) || partAlreadyAdded == false)
             {   
                 Product.addAssociatedPart(selectedTableViewPart);
             }
@@ -145,9 +145,11 @@ public class AddProductController implements Initializable
             index++;
             if(currentPart.getId() == id)
             {
+                System.out.println(true);
                 return true;
             }
         }
+        System.out.println(false);
         return false;
     }
 
@@ -216,7 +218,8 @@ public class AddProductController implements Initializable
                 int prodMin = Integer.parseInt(prodMinTxtFld.getText());
                 int prodMax = Integer.parseInt(prodMinTxtFld.getText());
                 
-                Product product = new Product(prodId,productName,prodPrice,prodInv,prodMin,prodMax);
+                ObservableList<Part> associatedParts = productAssociatedPartsTbl.getItems();
+                Product product = new Product(associatedParts, prodId,productName,prodPrice,prodInv,prodMin,prodMax);
                 Inventory.addProduct(product);
                 
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();

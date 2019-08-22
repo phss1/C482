@@ -199,6 +199,7 @@ public class ModifyProductController implements Initializable
                     isTotalCorrect == true && 
                     productHasParts == true)
             {
+                ObservableList<Part> associatedParts = productAssociatedPartsTbl.getItems();
                 int prodId = Integer.parseInt(prodIdTxtFld.getText());
                 String productName = prodNameTxtFld.getText();
                 int prodInv = Integer.parseInt(prodInvTxtFld.getText());
@@ -206,8 +207,8 @@ public class ModifyProductController implements Initializable
                 int prodMin = Integer.parseInt(prodMinTxtFld.getText());
                 int prodMax = Integer.parseInt(prodMinTxtFld.getText());
                 
-                Product product = new Product(prodId,productName,prodPrice,prodInv,prodMin,prodMax);
-                Inventory.addProduct(product);
+                Product product = new Product(associatedParts,prodId,productName,prodPrice,prodInv,prodMin,prodMax);
+                Product.modifyProduct(product);
                 
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
@@ -258,6 +259,7 @@ public class ModifyProductController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        
         Product filteredProductToModify = Inventory.getAllFilteredProducts().get(0);
         prodIdTxtFld.setText(Integer.toString(filteredProductToModify.getId()));
         prodNameTxtFld.setText(filteredProductToModify.getName());
@@ -277,8 +279,5 @@ public class ModifyProductController implements Initializable
         prodName.setCellValueFactory(new PropertyValueFactory<>("name"));
         prodInvLvl.setCellValueFactory(new PropertyValueFactory<>("stock"));
         prodPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
-        
-        int newPartId = Inventory.getPartIdCnt();
-        prodIdTxtFld.setText(Integer.toString(newPartId));
     }
 }
