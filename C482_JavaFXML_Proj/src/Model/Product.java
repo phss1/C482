@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
  */
 public class Product
 {
-    private static ObservableList<Part> associatedParts = FXCollections.observableArrayList();
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
     private int id;
     private String name;
     private Double price;
@@ -92,7 +92,7 @@ public class Product
         this.max = max;
     }
     
-    public static ObservableList<Part> getAssociatedParts()
+    public ObservableList<Part> getAssociatedParts()
     {
         return associatedParts;
     }
@@ -102,22 +102,20 @@ public class Product
         this.associatedParts = associatedParts;
     }
 
-    public static void addAssociatedPart(Part part)
+    public void addAssociatedPart(Part part)
     {
         associatedParts.add(part);
     }
     
-    public static void deleteAssociatedPart(Part part)
+    public  void deleteAssociatedPart(Part part, Product product)
     {
         int index = -1;
-        for(Part currentPart : Product.getAssociatedParts())
+        for(Part currentPart : product.getAssociatedParts())
         {
             index++;
             if(currentPart.getId() == part.getId())
             {
-                System.out.println(currentPart.getId());
-                System.out.println(part.getId());
-                Product.getAssociatedParts().remove(currentPart);
+                product.getAssociatedParts().remove(currentPart);
             }
         }
     }
@@ -149,7 +147,7 @@ public class Product
         return null;
     }
     
-    public static ObservableList<Product> filterProducts(int id)
+    /*public static ObservableList<Product> filterProducts(int id)
     {
         if(!(Inventory.getAllFilteredProducts().isEmpty()))
             Inventory.getAllFilteredProducts().clear();
@@ -158,13 +156,13 @@ public class Product
         {
             if(currentProduct.getId() == id)
             {
-                Inventory.getAllFilteredProducts().add(currentProduct);
+                Inventory.setFilteredProducts(currentProduct);
             }
         }
         return Inventory.getAllFilteredProducts();
-    }
+    }*/
     
-        public static void modifyProduct(Product product)
+        public void modifyProduct(Product product)
     {
         int index = -1;
         for(Part currentPart : Inventory.getAllParts())
@@ -176,5 +174,4 @@ public class Product
             }
         }
     }
-
 }

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -213,6 +214,8 @@ public class MainMenuController implements Initializable
     //product methods
     public void addProduct(ActionEvent event) throws IOException
     {
+        Inventory.getAllFilteredProducts().clear();
+        
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/AddProduct.fxml"));
         stage.setScene(new Scene(scene));
@@ -221,15 +224,16 @@ public class MainMenuController implements Initializable
     
     public void modifyProduct(ActionEvent event) throws IOException
     {
+        Product selectedTableViewProduct = ProductsTable.getSelectionModel().getSelectedItem();       
+        
         try
         {
-            Product selectedTableViewProduct = ProductsTable.getSelectionModel().getSelectedItem();
-            
-            if(!selectedTableViewProduct.equals(null))
+            if(selectedTableViewProduct != null)
             {
-                int selectedProductId = selectedTableViewProduct.getId();
-                Product.filterProducts(selectedProductId);
-
+                ObservableList<Product> prodToModify = FXCollections.observableArrayList();
+                prodToModify.add(selectedTableViewProduct);
+                Inventory.setFilteredProducts(prodToModify);
+                
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/View/ModifyProduct.fxml"));
                 stage.setScene(new Scene(scene));
@@ -238,7 +242,7 @@ public class MainMenuController implements Initializable
         }
         catch(Exception e)
         {
-            if(e.toString().contains("ava.lang.NullPointerException"))
+            if(e.toString().contains("java.lang.NullPointerException"))
             {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.initModality(Modality.NONE);

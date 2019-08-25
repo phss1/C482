@@ -35,9 +35,9 @@ public class C482 extends Application {
     {
         //add in house test data
         int newPartId1 = Inventory.getPartIdCnt();
-        InHouse a1 = new InHouse(newPartId1,"InHouse1",2.99,10,5,108,false,100);
+        InHouse a1 = new InHouse(newPartId1,"InHouse1",2.99,10,5,108,false,11);
         int newPartId2 = Inventory.getPartIdCnt();
-        InHouse a2 = new InHouse(newPartId2,"InHouse2",3.99,11,6,109,false,101);
+        InHouse a2 = new InHouse(newPartId2,"InHouse2",3.99,11,6,109,false,22);
         
         //System.out.println(Inventory.getAllParts());
         

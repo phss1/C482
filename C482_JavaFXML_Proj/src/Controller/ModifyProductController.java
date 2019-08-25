@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -93,15 +94,19 @@ public class ModifyProductController implements Initializable
     @FXML
     void onActionAddPartBtn(ActionEvent event)
     {
+        Product currentProdToModify = Inventory.getAllFilteredProducts().get(0);
+        Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();
+        boolean partAlreadyAdded = wasPartAlreadyAdded(selectedTableViewPart.getId(), currentProdToModify);         
+        //if(!currentProdToModify.getAssociatedParts().isEmpty())
+        
         try
         {
-            Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();
-            int currentPartId = selectedTableViewPart.getId();
-            boolean partAlreadyAdded = wasPartAlreadyAdded(currentPartId);
-            
             if(!selectedTableViewPart.getName().equals(null) && partAlreadyAdded == false)
             {   
-                Product.addAssociatedPart(selectedTableViewPart);
+                System.out.println("tried adding part.");
+                currentProdToModify.addAssociatedPart(selectedTableViewPart);
+                
+                Inventory.setFilteredProducts(null);
             }
             else
             {
@@ -127,15 +132,20 @@ public class ModifyProductController implements Initializable
         }
     }
     
-    public static boolean wasPartAlreadyAdded(int id)
+    public boolean wasPartAlreadyAdded(int id, Product product)
     {
         int index = -1;
-        for(Part currentPart : Product.getAssociatedParts())
+        Boolean isListEmpty = (product.getAssociatedParts().isEmpty());
+        if(!isListEmpty)
         {
-            index++;
-            if(currentPart.getId() == id)
-            {
-                return true;
+            for(Part currentPart : product.getAssociatedParts());
+            {            
+                index++;
+                Part partTest = product.getAssociatedParts().get(index);
+                if(partTest.getId() == id)
+                {
+                    return true;
+                }
             }
         }
         return false;
@@ -174,18 +184,21 @@ public class ModifyProductController implements Initializable
         {   
             Part selectedTableViewPart = productAssociatedPartsTbl.getSelectionModel().getSelectedItem();
             System.out.println(selectedTableViewPart.getId());
-            Product.deleteAssociatedPart(selectedTableViewPart);
+            Product productToModify = Inventory.getAllFilteredProducts().get(0);
+            productToModify.deleteAssociatedPart(selectedTableViewPart, productToModify);
         }
     }
 
     @FXML
     void onActionSaveProdBtn(ActionEvent event)
     {
+        Product modProductToSave = Inventory.getAllFilteredProducts().get(0);
+        
         Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(prodMinTxtFld.getText()), 
                 Integer.parseInt(prodMaxTxtFld.getText()),
                 Integer.parseInt(prodInvTxtFld.getText()));
         
-        Double minProductPrice = minProductValue();
+        Double minProductPrice = minProductValue(modProductToSave);
         Double enteredProdTotal = Double.parseDouble(prodPriceTxtFld.getText());
         Boolean isTotalCorrect = (enteredProdTotal >= minProductPrice);
         
@@ -208,7 +221,7 @@ public class ModifyProductController implements Initializable
                 int prodMax = Integer.parseInt(prodMinTxtFld.getText());
                 
                 Product product = new Product(associatedParts,prodId,productName,prodPrice,prodInv,prodMin,prodMax);
-                Product.modifyProduct(product);
+                modProductToSave.modifyProduct(product);
                 
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();
                 scene = FXMLLoader.load(getClass().getResource("/View/MainMenu.fxml"));
@@ -274,7 +287,7 @@ public class ModifyProductController implements Initializable
         partInvLvl.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
         
-        productAssociatedPartsTbl.setItems(Product.getAssociatedParts());
+        productAssociatedPartsTbl.setItems(filteredProductToModify.getAssociatedParts());
         prodId.setCellValueFactory(new PropertyValueFactory<>("id"));
         prodName.setCellValueFactory(new PropertyValueFactory<>("name"));
         prodInvLvl.setCellValueFactory(new PropertyValueFactory<>("stock"));

@@ -105,13 +105,16 @@ public class AddProductController implements Initializable
     {
         try
         {
+            Product productToAdd = null;
+            
             Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();
+            productToAdd.getAssociatedParts().add(selectedTableViewPart);
             int currentPartId = selectedTableViewPart.getId();
-            boolean partAlreadyAdded = wasPartAlreadyAdded(currentPartId);
+            boolean partAlreadyAdded = wasPartAlreadyAdded(currentPartId, productToAdd);
             
             if(!selectedTableViewPart.getName().equals(null) || partAlreadyAdded == false)
             {   
-                Product.addAssociatedPart(selectedTableViewPart);
+                productToAdd.addAssociatedPart(selectedTableViewPart);
             }
             else
             {
@@ -137,15 +140,14 @@ public class AddProductController implements Initializable
         }
     }
     
-    public static boolean wasPartAlreadyAdded(int id)
+    public static boolean wasPartAlreadyAdded(int id, Product product)
     {
         int index = -1;
-        for(Part currentPart : Product.getAssociatedParts())
+        for(Part currentPart : product.getAssociatedParts())
         {
             index++;
             if(currentPart.getId() == id)
             {
-                System.out.println(true);
                 return true;
             }
         }
@@ -186,18 +188,20 @@ public class AddProductController implements Initializable
         {        
             Part selectedTableViewPart = productAssociatedPartsTbl.getSelectionModel().getSelectedItem();
             System.out.println(selectedTableViewPart.getId());
-            Product.deleteAssociatedPart(selectedTableViewPart);
+            //roduct.deleteAssociatedPart(selectedTableViewPart);
         }
     }
 
     @FXML
     public void onActionSaveProductBtn(ActionEvent event)
     {
+        Product productToSave = new Product(null, Integer.parseInt(prodIdTxtFld.getText()), prodNameTxtFld.getText(),Double.parseDouble(prodPriceTxtFld.getText()), Integer.parseInt(prodInvTxtFld.getText()), Integer.parseInt(prodMinTxtFld.getText()), Integer.parseInt(prodMaxTxtFld.getText()));
+        
         Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(prodMinTxtFld.getText()), 
                 Integer.parseInt(prodMaxTxtFld.getText()),
                 Integer.parseInt(prodInvTxtFld.getText()));
         
-        Double minProductPrice = minProductValue();
+        Double minProductPrice = minProductValue(productToSave);
         Double enteredProdTotal = Double.parseDouble(prodPriceTxtFld.getText());
         Boolean isTotalCorrect = (enteredProdTotal >= minProductPrice);
         
@@ -254,15 +258,16 @@ public class AddProductController implements Initializable
         }
     }
     
-    public static Double minProductValue()
+    public static Double minProductValue(Product product)
     {
         int index = -1;
         Double totalPrice = 0.00;
-        for(Part currentPart : Product.getAssociatedParts())
+        for(Part currentPart : product.getAssociatedParts())
         {
             index++;
             totalPrice += currentPart.getPrice();
         }
+        
         
         return totalPrice;
     }
@@ -288,12 +293,6 @@ public class AddProductController implements Initializable
         partName.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInv.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
-        
-        productAssociatedPartsTbl.setItems(Product.getAssociatedParts());
-        prodPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        prodPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        productInvLvl.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        prodPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
         
         int newPartId = Inventory.getPartIdCnt();
         prodIdTxtFld.setText(Integer.toString(newPartId));
