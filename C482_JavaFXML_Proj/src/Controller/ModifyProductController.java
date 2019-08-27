@@ -95,28 +95,22 @@ public class ModifyProductController implements Initializable
     @FXML
     void onActionAddPartBtn(ActionEvent event)
     {
-        try
+        Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();
+        
+        
+        if(!selectedTableViewPart.getName().equals(null))
         {
             partsList.add(productPartsTbl.getSelectionModel().getSelectedItem());
             productAssociatedPartsTbl.setItems(partsList);
-            
-            /*
-            Product currentProdToModify = Inventory.getAllFilteredProducts().get(0);
-            Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();     
-            currentProdToModify.addAssociatedPart(selectedTableViewPart);
-            currentProdToModify.modifyProduct(currentProdToModify);*/
         }
-        catch(Exception e)
+        else
         {
-            if(e.toString().contains("ava.lang.NullPointerException"))
-            {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initModality(Modality.NONE);
-                alert.setTitle("Warning");
-                alert.setHeaderText("Selection Error");
-                alert.setContentText("Please select a part from the list before clicking the add part button.");
-                Optional<ButtonType> result = alert.showAndWait();
-            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("Warning");
+            alert.setHeaderText("No Part Selected");
+            alert.setContentText("Please make sure a part is selected to add.");
+            Optional<ButtonType> result = alert.showAndWait();
         }
     }
     
@@ -126,6 +120,7 @@ public class ModifyProductController implements Initializable
         Product chosenProduct = product;
         ObservableList<Part> productAssocParts = chosenProduct.getAssociatedParts();
         Inventory.getFilteredProducts().add(chosenProduct);
+        partsList = chosenProduct.getAssociatedParts();
         
         prodIdTxtFld.setText(String.valueOf(chosenProduct.getId()));
         prodNameTxtFld.setText(String.valueOf(chosenProduct.getName()));

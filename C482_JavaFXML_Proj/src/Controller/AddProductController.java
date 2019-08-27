@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,6 +43,7 @@ public class AddProductController implements Initializable
 {
     Stage stage;
     Parent scene;
+    ObservableList<Part> partsList = FXCollections.observableArrayList();
     
     @FXML
     private Label label;
@@ -105,16 +107,12 @@ public class AddProductController implements Initializable
     {
         try
         {
-            Product productToAdd = null;
-            
             Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();
-            productToAdd.getAssociatedParts().add(selectedTableViewPart);
-            int currentPartId = selectedTableViewPart.getId();
-            boolean partAlreadyAdded = wasPartAlreadyAdded(currentPartId, productToAdd);
             
-            if(!selectedTableViewPart.getName().equals(null) || partAlreadyAdded == false)
+            if(!selectedTableViewPart.getName().equals(null))
             {   
-                productToAdd.addAssociatedPart(selectedTableViewPart);
+                partsList.add(productPartsTbl.getSelectionModel().getSelectedItem());
+                productAssociatedPartsTbl.setItems(partsList);
             }
             else
             {
