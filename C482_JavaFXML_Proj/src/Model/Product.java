@@ -22,9 +22,8 @@ public class Product
     private int min;
     private int max;
 
-    public Product(ObservableList<Part> associatedParts, int id, String name, Double price, int stock, int min, int max)
+    public Product(int id, String name, Double price, int stock, int min, int max)
     {
-        this.associatedParts = associatedParts;
         this.id = id;
         this.name = name;
         this.price = price;
@@ -162,13 +161,13 @@ public class Product
         return Inventory.getAllFilteredProducts();
     }*/
     
-        public void modifyProduct(Product product)
+    public void modifyProduct(Product product)
     {
         int index = -1;
-        for(Part currentPart : Inventory.getAllParts())
+        for(Product currentProduct : Inventory.getAllProducts())
         {
             index++;
-            if(currentPart.getId() == product.getId())
+            if(currentProduct.getId() == product.getId())
             {
                 Inventory.getAllProducts().set(index, product);
             }

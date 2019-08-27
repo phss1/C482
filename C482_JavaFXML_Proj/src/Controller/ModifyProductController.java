@@ -39,6 +39,7 @@ public class ModifyProductController implements Initializable
 {
     Stage stage;
     Parent scene;
+    ObservableList<Part> partsList = FXCollections.observableArrayList();
     
     @FXML
     private TextField prodPartSearchTxtFld;
@@ -94,29 +95,16 @@ public class ModifyProductController implements Initializable
     @FXML
     void onActionAddPartBtn(ActionEvent event)
     {
-        Product currentProdToModify = Inventory.getAllFilteredProducts().get(0);
-        Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();
-        boolean partAlreadyAdded = wasPartAlreadyAdded(selectedTableViewPart.getId(), currentProdToModify);         
-        //if(!currentProdToModify.getAssociatedParts().isEmpty())
-        
         try
         {
-            if(!selectedTableViewPart.getName().equals(null) && partAlreadyAdded == false)
-            {   
-                System.out.println("tried adding part.");
-                currentProdToModify.addAssociatedPart(selectedTableViewPart);
-                
-                Inventory.setFilteredProducts(null);
-            }
-            else
-            {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initModality(Modality.NONE);
-                alert.setTitle("Warning");
-                alert.setHeaderText("Duplicate Part Added");
-                alert.setContentText("You cannot add the same part twice to a product.");
-                Optional<ButtonType> result = alert.showAndWait();
-            }    
+            partsList.add(productPartsTbl.getSelectionModel().getSelectedItem());
+            productAssociatedPartsTbl.setItems(partsList);
+            
+            /*
+            Product currentProdToModify = Inventory.getAllFilteredProducts().get(0);
+            Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();     
+            currentProdToModify.addAssociatedPart(selectedTableViewPart);
+            currentProdToModify.modifyProduct(currentProdToModify);*/
         }
         catch(Exception e)
         {
@@ -132,23 +120,25 @@ public class ModifyProductController implements Initializable
         }
     }
     
-    public boolean wasPartAlreadyAdded(int id, Product product)
+    public void sendInfo(Product product)
     {
-        int index = -1;
-        Boolean isListEmpty = (product.getAssociatedParts().isEmpty());
-        if(!isListEmpty)
-        {
-            for(Part currentPart : product.getAssociatedParts());
-            {            
-                index++;
-                Part partTest = product.getAssociatedParts().get(index);
-                if(partTest.getId() == id)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
+        Inventory.getFilteredProducts().clear();
+        Product chosenProduct = product;
+        ObservableList<Part> productAssocParts = chosenProduct.getAssociatedParts();
+        Inventory.getFilteredProducts().add(chosenProduct);
+        
+        prodIdTxtFld.setText(String.valueOf(chosenProduct.getId()));
+        prodNameTxtFld.setText(String.valueOf(chosenProduct.getName()));
+        prodInvTxtFld.setText(String.valueOf(chosenProduct.getStock()));
+        prodPriceTxtFld.setText(String.valueOf(chosenProduct.getPrice()));
+        prodMinTxtFld.setText(String.valueOf(chosenProduct.getMin()));
+        prodMaxTxtFld.setText(String.valueOf(chosenProduct.getMax()));
+        
+        productAssociatedPartsTbl.setItems(productAssocParts);
+        prodId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        prodName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        prodInvLvl.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        prodPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
     @FXML
@@ -218,9 +208,10 @@ public class ModifyProductController implements Initializable
                 int prodInv = Integer.parseInt(prodInvTxtFld.getText());
                 Double prodPrice = Double.parseDouble(prodPriceTxtFld.getText());
                 int prodMin = Integer.parseInt(prodMinTxtFld.getText());
-                int prodMax = Integer.parseInt(prodMinTxtFld.getText());
+                int prodMax = Integer.parseInt(prodMaxTxtFld.getText());
                 
-                Product product = new Product(associatedParts,prodId,productName,prodPrice,prodInv,prodMin,prodMax);
+                Product product = new Product(prodId,productName,prodPrice,prodInv,prodMin,prodMax);
+                product.setAssociatedParts(partsList);
                 modProductToSave.modifyProduct(product);
                 
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -272,25 +263,10 @@ public class ModifyProductController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        
-        Product filteredProductToModify = Inventory.getAllFilteredProducts().get(0);
-        prodIdTxtFld.setText(Integer.toString(filteredProductToModify.getId()));
-        prodNameTxtFld.setText(filteredProductToModify.getName());
-        prodInvTxtFld.setText(Integer.toString(filteredProductToModify.getStock()));
-        prodPriceTxtFld.setText(Double.toString(filteredProductToModify.getPrice()));
-        prodMinTxtFld.setText(Integer.toString(filteredProductToModify.getMin()));
-        prodMaxTxtFld.setText(Integer.toString(filteredProductToModify.getMax()));
-        
         productPartsTbl.setItems(Inventory.getAllParts());
         partId.setCellValueFactory(new PropertyValueFactory<>("id"));
         partName.setCellValueFactory(new PropertyValueFactory<>("name"));
         partInvLvl.setCellValueFactory(new PropertyValueFactory<>("stock"));
         partPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
-        
-        productAssociatedPartsTbl.setItems(filteredProductToModify.getAssociatedParts());
-        prodId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        prodName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        prodInvLvl.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        prodPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 }

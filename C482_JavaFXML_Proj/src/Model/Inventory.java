@@ -46,19 +46,23 @@ public class Inventory
         return partIdCnt;
     }
 
-    public static ObservableList<Part> getFilteredParts() {
+    public static ObservableList<Part> getFilteredParts()
+    {
         return filteredParts;
     }
 
-    public static void setFilteredParts(ObservableList<Part> filteredParts) {
+    public static void setFilteredParts(ObservableList<Part> filteredParts)
+    {
         Inventory.filteredParts = filteredParts;
     }
 
-    public static ObservableList<Product> getFilteredProducts() {
+    public static ObservableList<Product> getFilteredProducts()
+    {
         return filteredProducts;
     }
 
-    public static void setFilteredProducts(ObservableList<Product> filteredProducts) {
+    public static void setFilteredProducts(ObservableList<Product> filteredProducts)
+    {
         Inventory.filteredProducts = filteredProducts;
     }
 

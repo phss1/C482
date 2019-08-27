@@ -213,9 +213,7 @@ public class MainMenuController implements Initializable
     
     //product methods
     public void addProduct(ActionEvent event) throws IOException
-    {
-        Inventory.getAllFilteredProducts().clear();
-        
+    {        
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/View/AddProduct.fxml"));
         stage.setScene(new Scene(scene));
@@ -223,34 +221,30 @@ public class MainMenuController implements Initializable
     }
     
     public void modifyProduct(ActionEvent event) throws IOException
-    {
-        Product selectedTableViewProduct = ProductsTable.getSelectionModel().getSelectedItem();       
-        
+    {        
         try
         {
-            if(selectedTableViewProduct != null)
-            {
-                ObservableList<Product> prodToModify = FXCollections.observableArrayList();
-                prodToModify.add(selectedTableViewProduct);
-                Inventory.setFilteredProducts(prodToModify);
-                
-                stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-                scene = FXMLLoader.load(getClass().getResource("/View/ModifyProduct.fxml"));
-                stage.setScene(new Scene(scene));
-                stage.show();
-            }
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/View/ModifyProduct.fxml"));
+            loader.load();
+
+            ModifyProductController MPSController = loader.getController();
+            MPSController.sendInfo(ProductsTable.getSelectionModel().getSelectedItem());
+
+            stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+
         }
         catch(Exception e)
         {
-            if(e.toString().contains("java.lang.NullPointerException"))
-            {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initModality(Modality.NONE);
-                alert.setTitle("Warning");
-                alert.setHeaderText("Selection Error");
-                alert.setContentText("Please select a part from the list before clicking modify button.");
-                Optional<ButtonType> result = alert.showAndWait();
-            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Selection Error");
+            alert.setContentText("Please select a product from the list before clicking modify button.");
+            Optional<ButtonType> result = alert.showAndWait();
         }
     }
     

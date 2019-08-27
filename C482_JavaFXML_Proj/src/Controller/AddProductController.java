@@ -195,7 +195,7 @@ public class AddProductController implements Initializable
     @FXML
     public void onActionSaveProductBtn(ActionEvent event)
     {
-        Product productToSave = new Product(null, Integer.parseInt(prodIdTxtFld.getText()), prodNameTxtFld.getText(),Double.parseDouble(prodPriceTxtFld.getText()), Integer.parseInt(prodInvTxtFld.getText()), Integer.parseInt(prodMinTxtFld.getText()), Integer.parseInt(prodMaxTxtFld.getText()));
+        Product productToSave = new Product(Integer.parseInt(prodIdTxtFld.getText()), prodNameTxtFld.getText(),Double.parseDouble(prodPriceTxtFld.getText()), Integer.parseInt(prodInvTxtFld.getText()), Integer.parseInt(prodMinTxtFld.getText()), Integer.parseInt(prodMaxTxtFld.getText()));
         
         Boolean invInputCorrect = Inventory.isInvInputCorrect(Integer.parseInt(prodMinTxtFld.getText()), 
                 Integer.parseInt(prodMaxTxtFld.getText()),
@@ -223,7 +223,7 @@ public class AddProductController implements Initializable
                 int prodMax = Integer.parseInt(prodMinTxtFld.getText());
                 
                 ObservableList<Part> associatedParts = productAssociatedPartsTbl.getItems();
-                Product product = new Product(associatedParts, prodId,productName,prodPrice,prodInv,prodMin,prodMax);
+                Product product = new Product(prodId,productName,prodPrice,prodInv,prodMin,prodMax);
                 Inventory.addProduct(product);
                 
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();

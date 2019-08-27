@@ -52,16 +52,18 @@ public class C482 extends Application {
         Inventory.addPart(o1);
         Inventory.addPart(o2);
         
-        ObservableList<Part> associatedParts = null;
-        
         int newprodId1 = Inventory.getProdIdCnt();
-        Product p1 = new Product(associatedParts, newprodId1, "P1", 1.00, 1, 1, 4);
+        Product p1 = new Product(newprodId1, "P1", 1.00, 1, 1, 4);
+        p1.addAssociatedPart(a2);
         int newprodId2 = Inventory.getProdIdCnt();
-        Product p2 = new Product(associatedParts, newprodId2, "P2", 2.00, 2, 2, 5);
+        Product p2 = new Product(newprodId2, "P2", 2.00, 2, 2, 5);
+        p2.addAssociatedPart(a2);
         int newprodId3 = Inventory.getProdIdCnt();
-        Product p3 = new Product(associatedParts, newprodId3, "P3", 3.00, 3, 3, 6);
+        Product p3 = new Product(newprodId3, "P3", 3.00, 3, 3, 6);
+        p3.addAssociatedPart(a2);
         int newprodId4 = Inventory.getProdIdCnt();
-        Product p4 = new Product(associatedParts, newprodId4, "P4", 4.00, 4, 4, 7);
+        Product p4 = new Product(newprodId4, "P4", 4.00, 4, 4, 7);
+        p4.addAssociatedPart(a2);
         Inventory.addProduct(p1);
         Inventory.addProduct(p2);
         Inventory.addProduct(p3);
