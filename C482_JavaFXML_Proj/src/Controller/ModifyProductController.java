@@ -6,7 +6,6 @@
 package Controller;
 
 import static Controller.AddProductController.minProductValue;
-import static Controller.AddProductController.wasPartAlreadyAdded;
 import Model.*;
 import java.io.IOException;
 import java.net.URL;
@@ -97,7 +96,6 @@ public class ModifyProductController implements Initializable
     {
         Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();
         
-        
         if(!selectedTableViewPart.getName().equals(null))
         {
             partsList.add(productPartsTbl.getSelectionModel().getSelectedItem());
@@ -168,7 +166,6 @@ public class ModifyProductController implements Initializable
         if(result.get() == ButtonType.OK)
         {   
             Part selectedTableViewPart = productAssociatedPartsTbl.getSelectionModel().getSelectedItem();
-            System.out.println(selectedTableViewPart.getId());
             Product productToModify = Inventory.getAllFilteredProducts().get(0);
             productToModify.deleteAssociatedPart(selectedTableViewPart, productToModify);
         }

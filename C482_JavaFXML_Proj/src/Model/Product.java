@@ -146,21 +146,6 @@ public class Product
         return null;
     }
     
-    /*public static ObservableList<Product> filterProducts(int id)
-    {
-        if(!(Inventory.getAllFilteredProducts().isEmpty()))
-            Inventory.getAllFilteredProducts().clear();
-        
-        for(Product currentProduct : Inventory.getAllProducts())
-        {
-            if(currentProduct.getId() == id)
-            {
-                Inventory.setFilteredProducts(currentProduct);
-            }
-        }
-        return Inventory.getAllFilteredProducts();
-    }*/
-    
     public void modifyProduct(Product product)
     {
         int index = -1;

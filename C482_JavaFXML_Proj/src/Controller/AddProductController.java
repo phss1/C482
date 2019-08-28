@@ -58,21 +58,6 @@ public class AddProductController implements Initializable
     private TableView<Part> productPartsTbl;
 
     @FXML
-    private TableColumn<Part, Integer> prodPartId;
-
-    @FXML
-    private TableColumn<Part, String> prodPartName;
-
-    @FXML
-    private TableColumn<Part, Integer> productInvLvl;
-
-    @FXML
-    private TableColumn<Part, Double> prodPriceCost;
-
-    @FXML
-    private TableView<Part> productAssociatedPartsTbl;
-
-    @FXML
     private TableColumn<Part, Integer> partId;
 
     @FXML
@@ -83,6 +68,21 @@ public class AddProductController implements Initializable
 
     @FXML
     private TableColumn<Part, Double> partPriceCost;
+
+    @FXML
+    private TableView<Part> productAssociatedPartsTbl;
+
+    @FXML
+    private TableColumn<Part, Integer> prodPartId;
+
+    @FXML
+    private TableColumn<Part, String> prodPartName;
+
+    @FXML
+    private TableColumn<Part, Integer> productInvLvl;
+
+    @FXML
+    private TableColumn<Part, Double> prodPriceCost;
 
     @FXML
     private TextField prodIdTxtFld;
@@ -105,54 +105,28 @@ public class AddProductController implements Initializable
     @FXML
     public void onActionAddPartBtn(ActionEvent event)
     {
-        try
+        Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();
+
+        if(!(selectedTableViewPart.getName().equals(null)))
         {
-            Part selectedTableViewPart = productPartsTbl.getSelectionModel().getSelectedItem();
-            
-            if(!selectedTableViewPart.getName().equals(null))
-            {   
-                partsList.add(productPartsTbl.getSelectionModel().getSelectedItem());
-                productAssociatedPartsTbl.setItems(partsList);
-            }
-            else
-            {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initModality(Modality.NONE);
-                alert.setTitle("Warning");
-                alert.setHeaderText("Duplicate Part Added");
-                alert.setContentText("You cannot add the same part twice to a product.");
-                Optional<ButtonType> result = alert.showAndWait();
-            }
+            partsList.add(selectedTableViewPart);
+            productAssociatedPartsTbl.setItems(partsList);
+            prodPartId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            prodPartName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            productInvLvl.setCellValueFactory(new PropertyValueFactory<>("stock"));
+            prodPriceCost.setCellValueFactory(new PropertyValueFactory<>("price"));
         }
-        catch(Exception e)
+        else
         {
-            if(e.toString().contains("java.lang.NullPointerException"))
-            {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.initModality(Modality.NONE);
-                alert.setTitle("Warning");
-                alert.setHeaderText("Selection Error");
-                alert.setContentText("Please select a part from the list before clicking the add part button.");
-                Optional<ButtonType> result = alert.showAndWait();
-            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Duplicate Part Added");
+            alert.setContentText("You cannot add the same part twice to a product.");
+            Optional<ButtonType> result = alert.showAndWait();
         }
     }
     
-    public static boolean wasPartAlreadyAdded(int id, Product product)
-    {
-        int index = -1;
-        for(Part currentPart : product.getAssociatedParts())
-        {
-            index++;
-            if(currentPart.getId() == id)
-            {
-                return true;
-            }
-        }
-        System.out.println(false);
-        return false;
-    }
-
     @FXML
     public void onActionCancelBtn(ActionEvent event) throws IOException
     {
@@ -183,10 +157,22 @@ public class AddProductController implements Initializable
         Optional<ButtonType> result = alert.showAndWait();
 
         if(result.get() == ButtonType.OK)
-        {        
+        {
             Part selectedTableViewPart = productAssociatedPartsTbl.getSelectionModel().getSelectedItem();
-            System.out.println(selectedTableViewPart.getId());
-            //roduct.deleteAssociatedPart(selectedTableViewPart);
+            deleteAssociatedPart(partsList, selectedTableViewPart.getId());
+        }
+    }
+    
+    public void deleteAssociatedPart(ObservableList<Part> partList, int partId)
+    {
+        int index = -1;
+        for(Part currentPart : partList)
+        {
+            index++;
+            if(currentPart.getId() == partId)
+            {
+                partList.remove(index);
+            }
         }
     }
 
@@ -218,10 +204,11 @@ public class AddProductController implements Initializable
                 int prodInv = Integer.parseInt(prodInvTxtFld.getText());
                 Double prodPrice = Double.parseDouble(prodPriceTxtFld.getText());
                 int prodMin = Integer.parseInt(prodMinTxtFld.getText());
-                int prodMax = Integer.parseInt(prodMinTxtFld.getText());
+                int prodMax = Integer.parseInt(prodMaxTxtFld.getText());
                 
                 ObservableList<Part> associatedParts = productAssociatedPartsTbl.getItems();
                 Product product = new Product(prodId,productName,prodPrice,prodInv,prodMin,prodMax);
+                product.setAssociatedParts(partsList);
                 Inventory.addProduct(product);
                 
                 stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -265,8 +252,6 @@ public class AddProductController implements Initializable
             index++;
             totalPrice += currentPart.getPrice();
         }
-        
-        
         return totalPrice;
     }
 

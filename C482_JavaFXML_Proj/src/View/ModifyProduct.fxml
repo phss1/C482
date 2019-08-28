@@ -34,7 +34,6 @@
          </columns>
       </TableView>
       <Button fx:id="addPart" layoutX="690.0" layoutY="177.0" onAction="#onActionAddPartBtn" text="Add" />
-      <Label fx:id="label1" layoutX="51.0" layoutY="104.0" minHeight="16" minWidth="22.0" prefHeight="17.0" prefWidth="22.0" text="ID" />
       <TextField fx:id="prodIdTxtFld" disable="true" editable="false" layoutX="81.0" layoutY="100.0" prefHeight="25.0" prefWidth="117.0" promptText="Auto Gen - Disabled" />
       <TextField fx:id="prodNameTxtFld" layoutX="81.0" layoutY="139.0" prefHeight="25.0" prefWidth="117.0" promptText="Part Name" />
       <TextField fx:id="prodInvTxtFld" layoutX="81.0" layoutY="173.0" prefHeight="25.0" prefWidth="117.0" promptText="Inv" />
